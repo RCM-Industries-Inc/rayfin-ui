@@ -21,10 +21,10 @@ In an app that already has shadcn initialized (`npx shadcn@latest init`):
 
 ```bash
 # 1. Brand tokens — adds RCM colors to your :root / .dark (do this first)
-npx shadcn@latest add RCM-INDUSTRIES/rayfin-ui/rcm-theme
+npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/rcm-theme
 
 # 2. Components — pulls the source into your repo (it's yours to edit)
-npx shadcn@latest add RCM-INDUSTRIES/rayfin-ui/modal
+npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/modal
 ```
 
 `shadcn add` copies the component **source** into your tree (vendoring) and resolves
