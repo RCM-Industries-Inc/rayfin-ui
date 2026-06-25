@@ -1,0 +1,99 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "rayfin-ui",
+  "homepage": "https://github.com/RCM-INDUSTRIES/rayfin-ui",
+  "items": [
+    {
+      "name": "rcm-theme",
+      "type": "registry:theme",
+      "title": "RCM Modern Teal theme",
+      "description": "RCM Industries brand palette mapped onto shadcn/ui semantic tokens (light + dark). Add this first so every shadcn component renders on-brand.",
+      "cssVars": {
+        "theme": {
+          "font-sans": "'Segoe UI', system-ui, -apple-system, 'Segoe UI Variable', 'Source Sans 3', Roboto, Helvetica, Arial, sans-serif"
+        },
+        "light": {
+          "radius": "0.625rem",
+          "background": "#f7fafc",
+          "foreground": "#2d3748",
+          "card": "#ffffff",
+          "card-foreground": "#2d3748",
+          "popover": "#ffffff",
+          "popover-foreground": "#2d3748",
+          "primary": "#15a0a6",
+          "primary-foreground": "#ffffff",
+          "secondary": "#edf2f7",
+          "secondary-foreground": "#2d3748",
+          "muted": "#edf2f7",
+          "muted-foreground": "#4a5568",
+          "accent": "#edf2f7",
+          "accent-foreground": "#2d3748",
+          "destructive": "#d9534f",
+          "border": "#e2e8f0",
+          "input": "#e2e8f0",
+          "ring": "#15a0a6",
+          "chart-1": "#15a0a6",
+          "chart-2": "#2e5e8c",
+          "chart-3": "#e0a458",
+          "chart-4": "#3fb6bc",
+          "chart-5": "#c97b84",
+          "sidebar": "#ffffff",
+          "sidebar-foreground": "#2d3748",
+          "sidebar-primary": "#15a0a6",
+          "sidebar-primary-foreground": "#ffffff",
+          "sidebar-accent": "#edf2f7",
+          "sidebar-accent-foreground": "#2d3748",
+          "sidebar-border": "#e2e8f0",
+          "sidebar-ring": "#15a0a6"
+        },
+        "dark": {
+          "background": "#0e1a1d",
+          "foreground": "#e8eef0",
+          "card": "#15252a",
+          "card-foreground": "#e8eef0",
+          "popover": "#15252a",
+          "popover-foreground": "#e8eef0",
+          "primary": "#2ab6bb",
+          "primary-foreground": "#04201f",
+          "secondary": "#1e343b",
+          "secondary-foreground": "#e8eef0",
+          "muted": "#1e343b",
+          "muted-foreground": "#aec0c4",
+          "accent": "#1e343b",
+          "accent-foreground": "#e8eef0",
+          "destructive": "#e2706c",
+          "border": "#2a3f46",
+          "input": "#2a3f46",
+          "ring": "#2ab6bb",
+          "chart-1": "#2ab6bb",
+          "chart-2": "#2e5e8c",
+          "chart-3": "#e0a458",
+          "chart-4": "#5bc9be",
+          "chart-5": "#c97b84",
+          "sidebar": "#15252a",
+          "sidebar-foreground": "#e8eef0",
+          "sidebar-primary": "#2ab6bb",
+          "sidebar-primary-foreground": "#04201f",
+          "sidebar-accent": "#1e343b",
+          "sidebar-accent-foreground": "#e8eef0",
+          "sidebar-border": "#2a3f46",
+          "sidebar-ring": "#2ab6bb"
+        }
+      }
+    },
+    {
+      "name": "modal",
+      "type": "registry:component",
+      "title": "RCM Modal",
+      "description": "A convenience wrapper over the shadcn Dialog primitives with an ergonomic title/subtitle/footer API. Inherits Radix focus-trapping, ESC handling, scroll-lock, and ARIA wiring.",
+      "registryDependencies": ["dialog"],
+      "files": [
+        {
+          "path": "src/components/rcm/modal.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/modal.tsx"
+        }
+      ]
+    }
+  ]
+}

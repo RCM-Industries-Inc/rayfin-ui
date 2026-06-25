@@ -1,0 +1,232 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================================
+   RCM Industries design tokens — "Modern Teal"
+   ----------------------------------------------------------------------------
+   This file is the single source of truth for the Rayfin UI theme. It does two
+   things:
+     1. Defines the RCM brand palette as raw CSS variables (light in :root,
+        dark in .dark).
+     2. Maps shadcn/ui's semantic tokens (--background, --primary, --border, …)
+        onto that palette, so every shadcn component renders on-brand with no
+        per-component overrides.
+   Brand accents (teal, slate-blue, amber, rose) keep their meaning across
+   light/dark; only surfaces and text invert.
+   ============================================================================ */
+
+:root {
+  /* ---- RCM raw palette (light) ---- */
+  --rcm-app-bg: #f7fafc;
+  --rcm-surface: #ffffff;
+  --rcm-surface-2: #edf2f7;
+  --rcm-line: #e2e8f0;
+  --rcm-line-soft: #edf2f7;
+  --rcm-fg-1: #2d3748; /* primary text — muted slate, never pure black */
+  --rcm-fg-2: #4a5568; /* body / labels */
+  --rcm-fg-3: #a0aec0; /* captions / footnotes */
+
+  --rcm-teal: #15a0a6;
+  --rcm-deep-teal: #0e6e72;
+  --rcm-light-teal: #3fb6bc;
+  --rcm-slate-blue: #2e5e8c;
+  --rcm-amber: #e0a458;
+  --rcm-rose: #c97b84;
+
+  --rcm-good: #4fa672;
+  --rcm-neutral: #e0a458;
+  --rcm-bad: #d9534f;
+
+  --shadow-card: 0 2px 8px rgba(45, 55, 72, 0.12);
+
+  /* ---- shadcn semantic tokens → RCM palette (light) ---- */
+  --radius: 0.625rem; /* 10px — matches RCM card radius */
+
+  --background: var(--rcm-app-bg);
+  --foreground: var(--rcm-fg-1);
+  --card: var(--rcm-surface);
+  --card-foreground: var(--rcm-fg-1);
+  --popover: var(--rcm-surface);
+  --popover-foreground: var(--rcm-fg-1);
+  --primary: var(--rcm-teal);
+  --primary-foreground: #ffffff;
+  --secondary: var(--rcm-surface-2);
+  --secondary-foreground: var(--rcm-fg-1);
+  --muted: var(--rcm-surface-2);
+  --muted-foreground: var(--rcm-fg-2);
+  --accent: var(--rcm-surface-2);
+  --accent-foreground: var(--rcm-fg-1);
+  --destructive: var(--rcm-bad);
+  --border: var(--rcm-line);
+  --input: var(--rcm-line);
+  --ring: var(--rcm-teal);
+
+  /* data-viz: brand accents in priority order */
+  --chart-1: var(--rcm-teal);
+  --chart-2: var(--rcm-slate-blue);
+  --chart-3: var(--rcm-amber);
+  --chart-4: var(--rcm-light-teal);
+  --chart-5: var(--rcm-rose);
+
+  --sidebar: var(--rcm-surface);
+  --sidebar-foreground: var(--rcm-fg-1);
+  --sidebar-primary: var(--rcm-teal);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--rcm-surface-2);
+  --sidebar-accent-foreground: var(--rcm-fg-1);
+  --sidebar-border: var(--rcm-line);
+  --sidebar-ring: var(--rcm-teal);
+}
+
+.dark {
+  /* ---- RCM raw palette (dark): deep teal-black canvas, lifted slate cards ---- */
+  --rcm-app-bg: #0e1a1d;
+  --rcm-surface: #15252a;
+  --rcm-surface-2: #1e343b;
+  --rcm-line: #2a3f46;
+  --rcm-line-soft: #243339;
+  --rcm-fg-1: #e8eef0;
+  --rcm-fg-2: #aec0c4;
+  --rcm-fg-3: #7c9499;
+
+  /* brighten the primary accent slightly for contrast on dark */
+  --rcm-teal: #2ab6bb;
+  --rcm-light-teal: #5bc9be;
+  /* deep-teal, slate-blue, amber, rose stay constant */
+
+  --rcm-good: #5fb985;
+  --rcm-neutral: #e6b06a;
+  --rcm-bad: #e2706c;
+
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.4);
+
+  /* shadcn semantic tokens re-reference the (now dark) raw palette automatically;
+     only override where dark needs a different relationship than light. */
+  --background: var(--rcm-app-bg);
+  --foreground: var(--rcm-fg-1);
+  --card: var(--rcm-surface);
+  --card-foreground: var(--rcm-fg-1);
+  --popover: var(--rcm-surface);
+  --popover-foreground: var(--rcm-fg-1);
+  --primary: var(--rcm-teal);
+  --primary-foreground: #04201f;
+  --secondary: var(--rcm-surface-2);
+  --secondary-foreground: var(--rcm-fg-1);
+  --muted: var(--rcm-surface-2);
+  --muted-foreground: var(--rcm-fg-2);
+  --accent: var(--rcm-surface-2);
+  --accent-foreground: var(--rcm-fg-1);
+  --destructive: var(--rcm-bad);
+  --border: var(--rcm-line);
+  --input: var(--rcm-line);
+  --ring: var(--rcm-teal);
+
+  --chart-1: var(--rcm-teal);
+  --chart-2: var(--rcm-slate-blue);
+  --chart-3: var(--rcm-amber);
+  --chart-4: var(--rcm-light-teal);
+  --chart-5: var(--rcm-rose);
+
+  --sidebar: var(--rcm-surface);
+  --sidebar-foreground: var(--rcm-fg-1);
+  --sidebar-primary: var(--rcm-teal);
+  --sidebar-primary-foreground: #04201f;
+  --sidebar-accent: var(--rcm-surface-2);
+  --sidebar-accent-foreground: var(--rcm-fg-1);
+  --sidebar-border: var(--rcm-line);
+  --sidebar-ring: var(--rcm-teal);
+}
+
+@theme inline {
+  --font-sans: 'Segoe UI', system-ui, -apple-system, 'Segoe UI Variable',
+    'Source Sans 3', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-sans);
+
+  /* shadcn semantic color utilities (bg-background, text-primary, …) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* RCM brand utilities (bg-teal, text-fg-1, border-line, …) — available
+     alongside the semantic tokens for brand-specific accents. */
+  --color-app: var(--rcm-app-bg);
+  --color-surface: var(--rcm-surface);
+  --color-surface-2: var(--rcm-surface-2);
+  --color-line: var(--rcm-line);
+  --color-line-soft: var(--rcm-line-soft);
+  --color-fg-1: var(--rcm-fg-1);
+  --color-fg-2: var(--rcm-fg-2);
+  --color-fg-3: var(--rcm-fg-3);
+  --color-teal: var(--rcm-teal);
+  --color-deep-teal: var(--rcm-deep-teal);
+  --color-light-teal: var(--rcm-light-teal);
+  --color-slate-blue: var(--rcm-slate-blue);
+  --color-amber: var(--rcm-amber);
+  --color-rose: var(--rcm-rose);
+  --color-good: var(--rcm-good);
+  --color-neutral: var(--rcm-neutral);
+  --color-bad: var(--rcm-bad);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--border, currentColor);
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    background: var(--background);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
