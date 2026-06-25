@@ -37,6 +37,12 @@ one-time copy, not a runtime dependency — re-run `add` to pull updates.
 | --- | --- | --- |
 | `rcm-theme` | theme | RCM brand palette mapped onto shadcn semantic tokens (light + dark). |
 | `modal` | component | Dialog-based modal with an ergonomic `title`/`subtitle`/`footer` API. |
+| `data-table` | component | Themed, client-sorted table over `@tanstack/react-table` + the shadcn Table. |
+
+Base shadcn primitives (button, input, select, dialog, popover, sheet, field,
+table, …) are pulled from the **upstream** shadcn registry and themed
+automatically by `rcm-theme`. This registry hosts only the RCM theme and RCM
+composites; the showcase documents both.
 
 ## Local development
 

@@ -48,9 +48,63 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Toaster } from '@/components/ui/sonner';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
 import { Modal } from '@/components/rcm/modal';
+import { DataTable } from '@/components/rcm/data-table';
+import { type ColumnDef } from '@tanstack/react-table';
 
 import { useTheme } from './useTheme';
+
+type LoadRow = {
+  load: string;
+  supplier: string;
+  weight: number;
+  status: string;
+};
+
+const LOAD_ROWS: LoadRow[] = [
+  { load: '#4471', supplier: 'Nucor Steel', weight: 42300, status: 'Received' },
+  { load: '#4472', supplier: 'Ryerson', weight: 18900, status: 'Open' },
+  { load: '#4473', supplier: 'Alro Steel', weight: 31250, status: 'Received' },
+  { load: '#4474', supplier: 'Nucor Steel', weight: 9600, status: 'Open' },
+];
+
+const LOAD_COLUMNS: ColumnDef<LoadRow>[] = [
+  { accessorKey: 'load', header: 'Load' },
+  { accessorKey: 'supplier', header: 'Supplier' },
+  {
+    accessorKey: 'weight',
+    header: 'Weight (lb)',
+    cell: ({ row }) => row.original.weight.toLocaleString(),
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => (
+      <Badge variant={row.original.status === 'Open' ? 'default' : 'secondary'}>
+        {row.original.status}
+      </Badge>
+    ),
+  },
+];
 
 /* ---- layout helpers ------------------------------------------------------ */
 
@@ -356,6 +410,81 @@ export function ShowcaseApp() {
                 Show toast
               </Button>
             </div>
+          </Section>
+
+          <Section
+            title="Popover"
+            description="Anchored floating panel for inline controls."
+          >
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline">Columns</Button>
+              </PopoverTrigger>
+              <PopoverContent align="start" className="space-y-2">
+                <p className="text-sm font-medium text-foreground">
+                  Visible columns
+                </p>
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <label className="flex items-center gap-2">
+                    <Checkbox defaultChecked /> Supplier
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <Checkbox defaultChecked /> Weight
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <Checkbox /> PO number
+                  </label>
+                </div>
+              </PopoverContent>
+            </Popover>
+          </Section>
+
+          <Section
+            title="Sheet"
+            description="Slide-over panel for side content or forms."
+          >
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline">Open details</Button>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Load #4471</SheetTitle>
+                  <SheetDescription>
+                    Nucor Steel · A36 Carbon · PO 88231
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="px-4 text-sm text-muted-foreground">
+                  42,300 lbs received across 3 bundles.
+                </div>
+              </SheetContent>
+            </Sheet>
+          </Section>
+
+          <Section
+            title="Fields"
+            description="Form field composition with labels and descriptions."
+          >
+            <FieldGroup className="max-w-md">
+              <Field>
+                <FieldLabel htmlFor="f-po">PO number</FieldLabel>
+                <Input id="f-po" placeholder="121464" />
+                <FieldDescription>
+                  The purchase order this load bills against.
+                </FieldDescription>
+              </Field>
+              <Field orientation="horizontal">
+                <Checkbox id="f-rush" />
+                <FieldLabel htmlFor="f-rush">Rush order</FieldLabel>
+              </Field>
+            </FieldGroup>
+          </Section>
+
+          <Section
+            title="Data table"
+            description="RCM composite over @tanstack/react-table — click a header to sort."
+          >
+            <DataTable columns={LOAD_COLUMNS} data={LOAD_ROWS} />
           </Section>
         </main>
 

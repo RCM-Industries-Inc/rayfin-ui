@@ -94,6 +94,21 @@
           "target": "components/rcm/modal.tsx"
         }
       ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:component",
+      "title": "RCM DataTable",
+      "description": "A themed, client-sorted table built on @tanstack/react-table and the shadcn Table primitive. Pass column definitions + data; sortable columns get clickable headers.",
+      "dependencies": ["@tanstack/react-table"],
+      "registryDependencies": ["table", "button"],
+      "files": [
+        {
+          "path": "src/components/rcm/data-table.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/data-table.tsx"
+        }
+      ]
     }
   ]
 }
