@@ -15,6 +15,43 @@ This one repository plays three roles:
 > **Note:** distribution uses the GitHub registry, which requires this repo to be
 > **public** on `github.com`. The component source is public; no secrets live here.
 
+## Start a new app on the standard
+
+Begin from Rayfin's `blankapp` template (Fabric auth + routing + Vite + Tailwind v4),
+then pull the RCM standard onto it. On Windows, run these in **Git Bash** (PowerShell
+may block `npm.ps1` via execution policy; alternatively use `npm.cmd`).
+
+```bash
+# 1. Scaffold the blankapp (interactive — choose "Blank App")
+npm create @microsoft/rayfin@latest my-new-app
+#    …or non-interactive:
+#    npm create @microsoft/rayfin@latest -- my-new-app -t blankapp --project-name my-new-app
+
+cd my-new-app
+
+# 2. Initialize shadcn (lays down neutral tokens)
+npx shadcn@latest init -t vite -b radix -p nova -y
+
+# 3. Pull the RCM standard from this registry
+npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/rcm-theme       # brand tokens — do first
+npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/modal RCM-Industries-Inc/rayfin-ui/data-table
+
+# 4. Add whatever upstream primitives the app needs
+npx shadcn@latest add button input select dialog table popover sheet field
+```
+
+Tidy-up after step 2: `init` adds a Geist webfont `@import` to `src/main.css` —
+delete it, since `rcm-theme` sets the RCM Segoe/system font stack.
+
+Other Rayfin templates (the `-t` flag): `blankapp` (auth only), `todoapp`,
+`gettingstartedauth`, `dataapp` (when the app needs a Fabric data model).
+
+**Alternative — clone this repo:** `rayfin-ui` is already shadcn + RCM-themed +
+Fabric-wired, so you can `git clone` it, delete `src/showcase`, point
+`src/main.tsx` back at `<App />`, and rename in `package.json` + `rayfin/rayfin.yml`.
+Faster to a themed app, but you inherit showcase/registry files you must strip —
+fine for a spike, less clean as a repeatable pattern.
+
 ## Consuming components in another Rayfin app
 
 In an app that already has shadcn initialized (`npx shadcn@latest init`):
