@@ -32,11 +32,14 @@ cd my-new-app
 # 2. Initialize shadcn (lays down neutral tokens)
 npx shadcn@latest init -t vite -b radix -p nova -y
 
-# 3. Pull the RCM standard from this registry
-npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/rcm-theme       # brand tokens — do first
-npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/modal RCM-Industries-Inc/rayfin-ui/data-table
+# 3. Register the RCM registry namespace (one-time)
+npx shadcn@latest registry add @rcm=https://rcm-industries-inc.github.io/rayfin-ui/r/{name}.json
 
-# 4. Add whatever upstream primitives the app needs
+# 4. Pull the RCM standard from this registry
+npx shadcn@latest add @rcm/rcm-theme              # brand tokens — do first
+npx shadcn@latest add @rcm/modal @rcm/data-table
+
+# 5. Add whatever upstream primitives the app needs
 npx shadcn@latest add button input select dialog table popover sheet field
 ```
 
@@ -54,39 +57,35 @@ fine for a spike, less clean as a repeatable pattern.
 
 ## Consuming components in another Rayfin app
 
-In an app that already has shadcn initialized (`npx shadcn@latest init`):
+In an app that already has shadcn initialized (`npx shadcn@latest init`), register
+the `@rcm` namespace once, then add components by their short name. The namespace is
+backed by the per-item files this repo publishes to GitHub Pages, and it's what the
+**shadcn MCP server** needs to search/browse the registry.
 
 ```bash
-# 1. Brand tokens — adds RCM colors to your :root / .dark (do this first)
-npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/rcm-theme
+# 1. Register the namespace (one-time, writes to components.json)
+npx shadcn@latest registry add @rcm=https://rcm-industries-inc.github.io/rayfin-ui/r/{name}.json
 
-# 2. Components — pulls the source into your repo (it's yours to edit)
-npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/modal
+# 2. Brand tokens — adds RCM colors to your :root / .dark (do this first)
+npx shadcn@latest add @rcm/rcm-theme
+
+# 3. Components — pulls the source into your repo (it's yours to edit)
+npx shadcn@latest add @rcm/modal @rcm/data-table
+
+# Browse what's available
+npx shadcn@latest search @rcm
 ```
 
 `shadcn add` copies the component **source** into your tree (vendoring) and resolves
 any base primitives (e.g. `dialog`) from the upstream shadcn registry. It is a
 one-time copy, not a runtime dependency — re-run `add` to pull updates.
 
-### Using the `@rcm` namespace (recommended)
-
-The Pages deploy also publishes per-item registry files (built by `shadcn build`),
-so apps can register a named namespace instead of repeating the long GitHub path.
-This is what the **shadcn MCP server** needs to search/browse this registry.
+**Without registering a namespace**, the GitHub shorthand resolves the same registry:
 
 ```bash
-# one-time, in the consuming app
-npx shadcn@latest registry add @rcm=https://rcm-industries-inc.github.io/rayfin-ui/r/{name}.json
+npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/rcm-theme
+npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/modal
 ```
-
-```bash
-# then add components by namespace
-npx shadcn@latest add @rcm/rcm-theme @rcm/modal @rcm/data-table
-npx shadcn@latest search @rcm        # browse available items
-```
-
-The GitHub shorthand (`RCM-Industries-Inc/rayfin-ui/<item>`) keeps working too; the
-namespace is just a cleaner alias backed by the same registry.
 
 ## Available registry items
 
