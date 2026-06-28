@@ -9,7 +9,7 @@ This one repository plays three roles:
 | Role | What it is |
 | --- | --- |
 | **Showcase** | A static gallery of every component (light + dark), deployed to GitHub Pages. |
-| **Registry** | `registry.json` at the repo root — apps pull components with `shadcn add`. |
+| **Registry** | `registry.json` at the repo root, plus per-item files published to Pages under `/r/` — apps pull components via `shadcn add` (GitHub shorthand or the `@rcm` namespace). |
 | **Starter template** | Pre-wired Rayfin (Vite + React 19 + Tailwind v4 + Fabric auth) — clone to start a new app. |
 
 > **Note:** distribution uses the GitHub registry, which requires this repo to be
@@ -68,6 +68,26 @@ npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/modal
 any base primitives (e.g. `dialog`) from the upstream shadcn registry. It is a
 one-time copy, not a runtime dependency — re-run `add` to pull updates.
 
+### Using the `@rcm` namespace (recommended)
+
+The Pages deploy also publishes per-item registry files (built by `shadcn build`),
+so apps can register a named namespace instead of repeating the long GitHub path.
+This is what the **shadcn MCP server** needs to search/browse this registry.
+
+```bash
+# one-time, in the consuming app
+npx shadcn@latest registry add @rcm=https://rcm-industries-inc.github.io/rayfin-ui/r/{name}.json
+```
+
+```bash
+# then add components by namespace
+npx shadcn@latest add @rcm/rcm-theme @rcm/modal @rcm/data-table
+npx shadcn@latest search @rcm        # browse available items
+```
+
+The GitHub shorthand (`RCM-Industries-Inc/rayfin-ui/<item>`) keeps working too; the
+namespace is just a cleaner alias backed by the same registry.
+
 ## Available registry items
 
 | Item | Type | Description |
@@ -86,7 +106,8 @@ composites; the showcase documents both.
 ```bash
 npm install
 npm run dev:ui      # run the showcase locally (no Rayfin backend needed)
-npm run build:pages # build the static showcase
+npm run build:registry # build per-item registry files into public/r/
+npm run build:pages # build the registry + static showcase (what CI deploys)
 ```
 
 The showcase entry (`src/main.tsx` → `src/showcase/`) has no auth/backend

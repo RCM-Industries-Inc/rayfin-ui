@@ -16,6 +16,10 @@ dist-ssr
 *.tsbuildinfo
 .vite
 
+# Generated shadcn registry output (built by `shadcn build` during `build:pages`,
+# served from GitHub Pages at /r/<name>.json — regenerated in CI, not committed)
+public/r
+
 # Test coverage
 coverage
 
