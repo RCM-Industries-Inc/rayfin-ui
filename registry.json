@@ -109,6 +109,31 @@
           "target": "components/rcm/data-table.tsx"
         }
       ]
+    },
+    {
+      "name": "app-shell",
+      "type": "registry:component",
+      "title": "RCM App Shell",
+      "description": "The standard RCM app top navigation + page canvas: brand logo, separator, app title/subtitle, an optional context slot (e.g. a division selector), then user, theme toggle, and sign out. Every RCM app uses this so they all read as one product — pass only title/subtitle/context/actions and never rebuild the chrome. Pulls in theme-toggle + the useTheme hook and depends on the shared button. Also requires the scaffold's AuthContext and the RCM logos at src/assets/Logo_RCM_Teal.png (light) and Logo_RCM_White.png (dark), from the RCM Design System.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/components/rcm/app-shell.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/app-shell.tsx"
+        },
+        {
+          "path": "src/components/rcm/theme-toggle.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/theme-toggle.tsx"
+        },
+        {
+          "path": "src/hooks/useTheme.ts",
+          "type": "registry:hook",
+          "target": "hooks/useTheme.ts"
+        }
+      ]
     }
   ]
 }
