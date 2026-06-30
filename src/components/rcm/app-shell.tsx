@@ -19,10 +19,11 @@ interface AppShellProps {
   actions?: ReactNode;
   /**
    * Tailwind `max-w-*` for the shared header+content container. The width is the
-   * ONE thing apps may vary — a wide board can pass `max-w-[1600px]`, a form/table
-   * app can keep the default. The header and body always use this same value, so
-   * the navbar stays aligned with the content regardless of which width is chosen.
-   * Must be a literal class string so Tailwind generates it. Default `max-w-7xl`.
+   * ONE thing apps may vary; the default `max-w-[1600px]` fills large screens and
+   * stays responsive on small ones (via `w-full`). An app may pass a narrower value
+   * if its content reads better tighter. The header and body always use this same
+   * value, so the navbar stays aligned with the content. Must be a literal class
+   * string so Tailwind generates it.
    */
   maxWidth?: string;
   children: ReactNode;
@@ -47,7 +48,7 @@ export function AppShell({
   subtitle,
   context,
   actions,
-  maxWidth = 'max-w-7xl',
+  maxWidth = 'max-w-[1600px]',
   children,
 }: AppShellProps) {
   const { theme } = useTheme();
