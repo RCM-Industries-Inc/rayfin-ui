@@ -23,6 +23,10 @@ already exists here, and do not restyle shared components per app.
   + the `useTheme` hook and depends on the shared `button`. It expects the
   scaffold's `AuthContext` and the RCM logos at `src/assets/Logo_RCM_Teal.png`
   (light) and `Logo_RCM_White.png` (dark) — from the RCM Design System.
+- **Sign-in page — always the shared component.** Every app's login MUST be
+  `auth-page` (`npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/auth-page`).
+  Pass only `title` / `subtitle` / `footer`; the card, the "Sign in with
+  Microsoft" Button, and the sizing are fixed.
 - **Theme first.** Add `rcm-theme` before anything else
   (`… add …/rcm-theme`) so all shadcn components render in RCM Modern Teal
   (light + dark). Build on the tokens; don't invent colors.

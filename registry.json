@@ -134,6 +134,30 @@
           "target": "hooks/useTheme.ts"
         }
       ]
+    },
+    {
+      "name": "auth-page",
+      "type": "registry:component",
+      "title": "RCM Auth Page",
+      "description": "The standard RCM sign-in page: theme-aware logo, app title/subtitle, and the shared 'Sign in with Microsoft' Button on a teal-tinted backdrop. Every RCM app uses this so logins match — pass only title/subtitle/footer; the card, button, and sizing are fixed. Pulls in theme-toggle + the useTheme hook and depends on the shared button. Requires the scaffold's AuthContext and the RCM logos at src/assets/Logo_RCM_Teal.png / Logo_RCM_White.png.",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/components/rcm/auth-page.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/auth-page.tsx"
+        },
+        {
+          "path": "src/components/rcm/theme-toggle.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/theme-toggle.tsx"
+        },
+        {
+          "path": "src/hooks/useTheme.ts",
+          "type": "registry:hook",
+          "target": "hooks/useTheme.ts"
+        }
+      ]
     }
   ]
 }
