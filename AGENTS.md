@@ -35,4 +35,18 @@ already exists here, and do not restyle shared components per app.
 - **Canonical spec.** The full header/nav standard (height, order, sizes) is
   documented in the RCM Design System under "App Shell & Top Navigation".
 
+### Adding or changing a shared component
+
+This repo is the home for **reusable** RCM UI. When an app needs a component that
+isn't app-specific (chrome, a primitive, a pattern any app could reuse):
+
+1. Build it here under `src/components/rcm/` (or `ui/`), on-theme, shadcn tokens.
+2. Register it in `registry.json` (name, description, files, deps) so apps add it
+   with `npx shadcn add RCM-Industries-Inc/rayfin-ui/<name>`.
+3. Document the standard in the RCM Design System, and mandate it above if it's
+   chrome every app must share.
+
+App-specific UI (tied to one app's domain) stays in that app. Everything reusable
+belongs here — **default to promoting it.**
+
 Evolving these shared standards should be **additive** — extend, don't fork.
