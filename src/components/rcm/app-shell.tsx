@@ -30,9 +30,11 @@ interface AppShellProps {
  * one product. Do not hand-roll an app header — use this. See the RCM Design
  * System "App Shell & Top Navigation" standard.
  *
- * Expects the standard Rayfin scaffold: `useAuth` (@/hooks/AuthContext),
- * `useTheme` (@/hooks/useTheme), the shared `Button`, and the RCM logos in
- * @/assets (Logo_RCM_Teal.png / Logo_RCM_White.png).
+ * Uses only shadcn semantic tokens (background / card / border / foreground /
+ * muted-foreground) so it is portable to any app on the `rcm-theme`. Expects the
+ * standard Rayfin scaffold: `useAuth` (@/hooks/AuthContext), `useTheme`
+ * (@/hooks/useTheme), the shared `Button`, and the RCM logos in @/assets
+ * (Logo_RCM_Teal.png / Logo_RCM_White.png).
  */
 export function AppShell({ title, subtitle, context, actions, children }: AppShellProps) {
   const { theme } = useTheme();
@@ -40,21 +42,21 @@ export function AppShell({ title, subtitle, context, actions, children }: AppShe
   const logo = theme === 'dark' ? logoWhite : logoTeal;
 
   return (
-    <div className="min-h-screen bg-app text-fg-2">
-      <header className="sticky top-0 z-30 border-b border-line bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
         <div className="flex h-16 items-center gap-3 px-4">
           <img src={logo} alt="RCM Industries" className="h-8 w-auto shrink-0" />
-          <div className="h-8 w-px shrink-0 bg-line" />
+          <div className="h-8 w-px shrink-0 bg-border" />
           <div className="flex min-w-0 flex-col leading-tight">
-            <span className="truncate text-lg font-semibold tracking-tight text-fg-1">{title}</span>
-            {subtitle && <span className="truncate text-xs text-fg-3">{subtitle}</span>}
+            <span className="truncate text-lg font-semibold tracking-tight text-foreground">{title}</span>
+            {subtitle && <span className="truncate text-xs text-muted-foreground">{subtitle}</span>}
           </div>
           {context && <div className="ml-2 flex shrink-0 items-center">{context}</div>}
 
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {actions}
             {user && (
-              <span className="hidden max-w-[180px] truncate text-sm text-fg-2 md:inline">
+              <span className="hidden max-w-[180px] truncate text-sm text-muted-foreground md:inline">
                 {user.name}
               </span>
             )}
