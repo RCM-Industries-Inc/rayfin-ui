@@ -17,6 +17,14 @@ interface AppShellProps {
   context?: ReactNode;
   /** App-specific actions rendered before the user / theme / sign-out cluster. */
   actions?: ReactNode;
+  /**
+   * Tailwind `max-w-*` for the shared header+content container. The width is the
+   * ONE thing apps may vary — a wide board can pass `max-w-[1600px]`, a form/table
+   * app can keep the default. The header and body always use this same value, so
+   * the navbar stays aligned with the content regardless of which width is chosen.
+   * Must be a literal class string so Tailwind generates it. Default `max-w-7xl`.
+   */
+  maxWidth?: string;
   children: ReactNode;
 }
 
@@ -25,27 +33,33 @@ interface AppShellProps {
  * Rayfin app: brand logo · separator · title/subtitle · [context] … [actions] ·
  * user · theme · sign out, over a full-height canvas.
  *
- * Apps customize ONLY `title` / `subtitle` / `context` / `actions`; the chrome
- * (height, logo, order, button sizing) stays identical so every app reads as
- * one product. Do not hand-roll an app header — use this. See the RCM Design
- * System "App Shell & Top Navigation" standard.
+ * The entire navbar (logo, separator, title, theme toggle, sign-out button) is
+ * fixed here so it is IDENTICAL in every app — same height, same icons, same
+ * button sizes — by construction, not convention. Apps customize ONLY `title` /
+ * `subtitle` / `context` / `actions` / `maxWidth`, and render page content as
+ * children. They must NOT add their own max-width wrapper — the shell owns it so
+ * the navbar and content always align.
  *
- * Uses only shadcn semantic tokens (background / card / border / foreground /
- * muted-foreground) so it is portable to any app on the `rcm-theme`. Expects the
- * standard Rayfin scaffold: `useAuth` (@/hooks/AuthContext), `useTheme`
- * (@/hooks/useTheme), the shared `Button`, and the RCM logos in @/assets
- * (Logo_RCM_Teal.png / Logo_RCM_White.png).
+ * Uses only shadcn semantic tokens so it is portable to any app on `rcm-theme`.
  */
-export function AppShell({ title, subtitle, context, actions, children }: AppShellProps) {
+export function AppShell({
+  title,
+  subtitle,
+  context,
+  actions,
+  maxWidth = 'max-w-7xl',
+  children,
+}: AppShellProps) {
   const { theme } = useTheme();
   const { user, signOut } = useAuth();
   const logo = theme === 'dark' ? logoWhite : logoTeal;
+  const container = `mx-auto w-full ${maxWidth} px-6`;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
-        <div className="flex h-16 items-center gap-3 px-4">
-          <img src={logo} alt="RCM Industries" className="h-8 w-auto shrink-0" />
+        <div className={`flex h-16 items-center gap-3 ${container}`}>
+          <img src={logo} alt="RCM Industries" className="h-9 w-auto shrink-0" />
           <div className="h-8 w-px shrink-0 bg-border" />
           <div className="flex min-w-0 flex-col leading-tight">
             <span className="truncate text-lg font-semibold tracking-tight text-foreground">{title}</span>
@@ -68,7 +82,7 @@ export function AppShell({ title, subtitle, context, actions, children }: AppShe
           </div>
         </div>
       </header>
-      <main className="px-4 py-5">{children}</main>
+      <main className={`${container} py-5`}>{children}</main>
     </div>
   );
 }
