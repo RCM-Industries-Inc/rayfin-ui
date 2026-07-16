@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { Moon, Sun, ChevronDown, Info } from 'lucide-react';
+import { ChevronDown, Info } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -70,8 +70,7 @@ import {
 import { Modal } from '@/components/rcm/modal';
 import { DataTable } from '@/components/rcm/data-table';
 import { type ColumnDef } from '@tanstack/react-table';
-
-import { useTheme } from './useTheme';
+import logoTeal from '@/assets/Logo_RCM_Teal.png';
 
 type LoadRow = {
   load: string;
@@ -93,13 +92,15 @@ const LOAD_COLUMNS: ColumnDef<LoadRow>[] = [
   {
     accessorKey: 'weight',
     header: 'Weight (lb)',
-    cell: ({ row }) => row.original.weight.toLocaleString(),
+    cell: ({ row }) => (
+      <span className="block text-right tabular-nums">{row.original.weight.toLocaleString()}</span>
+    ),
   },
   {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => (
-      <Badge variant={row.original.status === 'Open' ? 'default' : 'secondary'}>
+      <Badge variant={row.original.status === 'Open' ? 'neutral' : 'good'}>
         {row.original.status}
       </Badge>
     ),
@@ -120,12 +121,12 @@ function Section({
   return (
     <section className="space-y-4">
       <div>
-        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+        <h2 className="text-sm font-semibold text-fg-1">{title}</h2>
         {description && (
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="text-[13px] text-fg-2">{description}</p>
         )}
       </div>
-      <div className="rounded-xl border bg-card p-6 shadow-sm">{children}</div>
+      <div className="rounded-lg border border-border bg-card p-6 shadow-[var(--shadow-card)]">{children}</div>
     </section>
   );
 }
@@ -134,6 +135,8 @@ const BRAND_SWATCHES: { name: string; className: string }[] = [
   { name: 'teal', className: 'bg-teal' },
   { name: 'deep-teal', className: 'bg-deep-teal' },
   { name: 'light-teal', className: 'bg-light-teal' },
+  { name: 'aqua', className: 'bg-aqua' },
+  { name: 'mint', className: 'bg-mint' },
   { name: 'slate-blue', className: 'bg-slate-blue' },
   { name: 'amber', className: 'bg-amber' },
   { name: 'rose', className: 'bg-rose' },
@@ -163,42 +166,35 @@ const SEMANTIC_SWATCHES: { name: string; className: string; fg: string }[] = [
 /* ---- showcase ------------------------------------------------------------ */
 
 export function ShowcaseApp() {
-  const { theme, toggle } = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <TooltipProvider delayDuration={200}>
-      <div className="min-h-screen bg-background text-foreground">
-        <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-            <div>
-              <h1 className="text-xl font-bold tracking-tight">Rayfin UI</h1>
-              <p className="text-sm text-muted-foreground">
+    <TooltipProvider delayDuration={0}>
+      <div className="min-h-screen bg-background text-fg-2">
+        <header className="sticky top-0 z-10 border-b border-border bg-card">
+          <div className="mx-auto flex h-16 max-w-5xl items-center gap-3 px-6">
+            <img src={logoTeal} alt="RCM Industries" className="h-9 w-auto shrink-0" />
+            <div className="h-8 w-px shrink-0 bg-border" />
+            <div className="min-w-0 leading-tight">
+              <h1 className="text-xl font-semibold tracking-tight text-fg-1">Rayfin UI</h1>
+              <p className="text-[13px] text-fg-2">
                 RCM component library · shadcn/ui + Modern Teal
               </p>
             </div>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggle}
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? <Sun /> : <Moon />}
-            </Button>
           </div>
         </header>
 
         <main className="mx-auto max-w-5xl space-y-12 px-6 py-10">
           <Section
             title="Brand palette"
-            description="RCM accents stay constant across light/dark; surfaces and text invert."
+            description="One opaque light theme. Color encodes brand, division, sentiment, or severity—not decoration."
           >
             <div className="space-y-6">
-              <div className="grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-9">
+              <div className="grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-6">
                 {BRAND_SWATCHES.map((s) => (
                   <div key={s.name} className="space-y-1.5">
                     <div
-                      className={`h-12 rounded-lg border ${s.className}`}
+                      className={`h-12 rounded-sm border ${s.className}`}
                       aria-hidden
                     />
                     <p className="text-center text-xs text-muted-foreground">
@@ -212,9 +208,9 @@ export function ShowcaseApp() {
                 {SEMANTIC_SWATCHES.map((s) => (
                   <div key={s.name} className="space-y-1.5">
                     <div
-                      className={`flex h-12 items-center justify-center rounded-lg border ${s.className} ${s.fg}`}
+                      className={`flex h-12 items-center justify-center rounded-sm border ${s.className} ${s.fg}`}
                     >
-                      <span className="text-xs font-medium">Aa</span>
+                      <span className="text-xs font-semibold">Aa</span>
                     </div>
                     <p className="text-center text-xs text-muted-foreground">
                       {s.name}
@@ -247,12 +243,12 @@ export function ShowcaseApp() {
             </div>
           </Section>
 
-          <Section title="Badges">
+          <Section title="Status pills" description="Sentiment tint plus darkened text; status never depends on color alone.">
             <div className="flex flex-wrap items-center gap-3">
-              <Badge>Default</Badge>
-              <Badge variant="secondary">Secondary</Badge>
-              <Badge variant="outline">Outline</Badge>
-              <Badge variant="destructive">Destructive</Badge>
+              <Badge variant="good">Received</Badge>
+              <Badge variant="neutral">Pending</Badge>
+              <Badge variant="bad">Blocked</Badge>
+              <Badge variant="secondary">Selected</Badge>
             </div>
           </Section>
 
@@ -289,8 +285,8 @@ export function ShowcaseApp() {
             </div>
           </Section>
 
-          <Section title="Card">
-            <Card className="max-w-sm">
+          <Section title="Card" description="Opaque white, 10px radius, hairline border, and layered ink elevation.">
+            <Card interactive className="max-w-sm">
               <CardHeader>
                 <CardTitle>Load #4471</CardTitle>
                 <CardDescription>Nucor Steel · A36 Carbon</CardDescription>
@@ -304,6 +300,26 @@ export function ShowcaseApp() {
                   Link invoice
                 </Button>
               </CardFooter>
+            </Card>
+          </Section>
+
+          <Section
+            title="KPI callout"
+            description="Category color is a 9px label swatch—not a tinted card or colored edge."
+          >
+            <Card interactive className="max-w-xs">
+              <CardContent className="pt-3.5">
+                <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold text-fg-2">
+                  <span className="size-[9px] rounded-[2px] bg-teal" aria-hidden />
+                  Open backlog
+                </div>
+                <div className="text-[30px] leading-none font-semibold text-deep-teal tabular-nums">
+                  $2,418,930
+                </div>
+                <div className="mt-2 text-[11px] font-semibold text-good tabular-nums">
+                  ▼ 4.2% <span className="font-normal text-fg-2">vs. prior week</span>
+                </div>
+              </CardContent>
             </Card>
           </Section>
 
@@ -336,34 +352,36 @@ export function ShowcaseApp() {
           </Section>
 
           <Section title="Table">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Load</TableHead>
-                  <TableHead>Supplier</TableHead>
-                  <TableHead>Weight</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">#4471</TableCell>
-                  <TableCell>Nucor Steel</TableCell>
-                  <TableCell>42,300 lbs</TableCell>
-                  <TableCell>
-                    <Badge variant="secondary">Received</Badge>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">#4472</TableCell>
-                  <TableCell>Ryerson</TableCell>
-                  <TableCell>18,900 lbs</TableCell>
-                  <TableCell>
-                    <Badge>Open</Badge>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            <div className="overflow-hidden rounded-sm border border-border shadow-[var(--shadow-card)]">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Load</TableHead>
+                    <TableHead>Supplier</TableHead>
+                    <TableHead className="text-right">Weight</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell className="font-semibold text-fg-1">#4471</TableCell>
+                    <TableCell>Nucor Steel</TableCell>
+                    <TableCell className="text-right">42,300 lbs</TableCell>
+                    <TableCell>
+                      <Badge variant="good">Received</Badge>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="font-semibold text-fg-1">#4472</TableCell>
+                    <TableCell>Ryerson</TableCell>
+                    <TableCell className="text-right">18,900 lbs</TableCell>
+                    <TableCell>
+                      <Badge variant="neutral">Open</Badge>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
           </Section>
 
           <Section
@@ -421,7 +439,7 @@ export function ShowcaseApp() {
                 <Button variant="outline">Columns</Button>
               </PopoverTrigger>
               <PopoverContent align="start" className="space-y-2">
-                <p className="text-sm font-medium text-foreground">
+                <p className="text-xs font-semibold text-fg-1">
                   Visible columns
                 </p>
                 <div className="space-y-2 text-sm text-muted-foreground">

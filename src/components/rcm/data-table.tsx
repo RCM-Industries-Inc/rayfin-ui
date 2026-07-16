@@ -50,26 +50,35 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
   });
 
+  const isNumericColumn = (columnId: string) =>
+    table
+      .getRowModel()
+      .rows.some((row) => typeof row.getValue(columnId) === 'number');
+
   return (
-    <div className="overflow-hidden rounded-xl border">
-      <Table>
+    <div className="overflow-hidden rounded-sm border border-border bg-card shadow-[var(--shadow-card)]">
+      <Table className="tabular-nums">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
+                <TableHead
+                  key={header.id}
+                  className={isNumericColumn(header.column.id) ? 'text-right' : undefined}
+                  data-numeric={isNumericColumn(header.column.id) || undefined}
+                >
                   {header.isPlaceholder ? null : header.column.getCanSort() ? (
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="-ml-2.5 data-[state=sorted]:text-foreground"
+                      className={`${isNumericColumn(header.column.id) ? 'ml-auto' : '-ml-2'} h-7 rounded-sm px-2 text-[10.5px] font-semibold text-white hover:bg-primary hover:text-white focus-visible:ring-white`}
                       onClick={header.column.getToggleSortingHandler()}
                     >
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
-                      <ArrowUpDown />
+                      <ArrowUpDown strokeWidth={1.5} />
                     </Button>
                   ) : (
                     flexRender(
@@ -87,7 +96,11 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    className={typeof cell.getValue() === 'number' ? 'text-right' : undefined}
+                    data-numeric={typeof cell.getValue() === 'number' || undefined}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
