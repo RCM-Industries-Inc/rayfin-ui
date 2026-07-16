@@ -2,49 +2,133 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
-
 /* ============================================================================
-   RCM Industries design tokens — "Modern Teal"
-   ----------------------------------------------------------------------------
-   This file is the single source of truth for the Rayfin UI theme. It does two
-   things:
-     1. Defines the RCM brand palette as raw CSS variables (light in :root,
-        dark in .dark).
-     2. Maps shadcn/ui's semantic tokens (--background, --primary, --border, …)
-        onto that palette, so every shadcn component renders on-brand with no
-        per-component overrides.
-   Brand accents (teal, slate-blue, amber, rose) keep their meaning across
-   light/dark; only surfaces and text invert.
+   RCM Industries — Modern Teal v2.0
+   Source of truth: RCM Design System / DESIGN.md.
+
+   One light, editorial, fully opaque theme. Teal Glass and dark mode are
+   retired. Components consume semantic tokens; applications must not invent
+   colors, shadows, radii, or motion values locally.
    ============================================================================ */
 
 :root {
-  /* ---- RCM raw palette (light) ---- */
+  color-scheme: light;
+
+  /* ---- Brand palette ----------------------------------------------------- */
+  --rcm-teal: #15a0a6;
+  --rcm-deep-teal: #0e6e72;
+  --rcm-light-teal: #3fb6bc;
+  --rcm-aqua: #5bc9be;
+  --rcm-mint: #8fd9cf;
+  --rcm-slate-blue: #2e5e8c;
+  --rcm-amber: #e0a458;
+  --rcm-rose: #c97b84;
+  --rcm-hyperlink: #0e6e72;
+
+  /* ---- Text / ink -------------------------------------------------------- */
+  --rcm-ink: #1a2b33;
+  --rcm-fg-1: #2d3748;
+  --rcm-fg-2: #4a5568;
+  --rcm-fg-3: #a0aec0;
+  --rcm-fg-disabled: #cbd5e0;
+
+  /* ---- Surfaces / lines -------------------------------------------------- */
   --rcm-app-bg: #f7fafc;
   --rcm-surface: #ffffff;
   --rcm-surface-2: #edf2f7;
   --rcm-line: #e2e8f0;
+  --rcm-line-strong: #cbd5e0;
   --rcm-line-soft: #edf2f7;
-  --rcm-fg-1: #2d3748; /* primary text — muted slate, never pure black */
-  --rcm-fg-2: #4a5568; /* body / labels */
-  --rcm-fg-3: #a0aec0; /* captions / footnotes */
+  --rcm-grad-min: #c97b84;
+  --rcm-grad-center: #e2e8f0;
+  --rcm-grad-max: #0e6e72;
 
-  --rcm-teal: #15a0a6;
-  --rcm-deep-teal: #0e6e72;
-  --rcm-light-teal: #3fb6bc;
-  --rcm-slate-blue: #2e5e8c;
-  --rcm-amber: #e0a458;
-  --rcm-rose: #c97b84;
+  /* ---- Interaction states ------------------------------------------------ */
+  --rcm-tint-hover: rgba(21, 160, 166, 0.05);
+  --rcm-tint-selected: rgba(21, 160, 166, 0.1);
+  --rcm-tint-active: rgba(21, 160, 166, 0.14);
+  --rcm-focus-color: rgba(21, 160, 166, 0.28);
+  --focus-ring: 0 0 0 3px var(--rcm-focus-color);
 
+  /* ---- Sentiment --------------------------------------------------------- */
   --rcm-good: #4fa672;
   --rcm-neutral: #e0a458;
   --rcm-bad: #d9534f;
+  --rcm-tint-good: rgba(79, 166, 114, 0.14);
+  --rcm-tint-neutral: rgba(224, 164, 88, 0.16);
+  --rcm-tint-bad: rgba(217, 83, 79, 0.12);
+  --rcm-good-text: color-mix(in srgb, var(--rcm-good) 70%, var(--rcm-ink));
+  --rcm-bad-text: color-mix(in srgb, var(--rcm-bad) 72%, var(--rcm-ink));
 
-  --shadow-card: 0 2px 8px rgba(45, 55, 72, 0.12);
+  /* ---- Severity / division / categorical data --------------------------- */
+  --rcm-sev-current: #0e6e72;
+  --rcm-sev-1-30: #15a0a6;
+  --rcm-sev-31-60: #e0a458;
+  --rcm-sev-61-90: #d98841;
+  --rcm-sev-91-120: #c9603f;
+  --rcm-sev-121: #b5433f;
 
-  /* ---- shadcn semantic tokens → RCM palette (light) ---- */
-  --radius: 0.625rem; /* 10px — matches RCM card radius */
+  --rcm-div-afp: #15a0a6;
+  --rcm-div-anc: #0e6e72;
+  --rcm-div-imp: #2e5e8c;
+  --rcm-div-inl: #e0a458;
 
+  --rcm-data-1: #15a0a6;
+  --rcm-data-2: #0e6e72;
+  --rcm-data-3: #2e5e8c;
+  --rcm-data-4: #e0a458;
+  --rcm-data-5: #c97b84;
+  --rcm-data-6: #6b8f71;
+  --rcm-data-7: #8c7bb0;
+  --rcm-data-8: #4a5568;
+  --rcm-data-9: #3fb6bc;
+  --rcm-data-10: #9aaab8;
+
+  /* ---- Typography craft -------------------------------------------------- */
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --fs-callout: 30px;
+  --fs-title: 20px;
+  --fs-card: 14px;
+  --fs-header: 12px;
+  --fs-body: 13px;
+  --fs-data: 10px;
+  --lh-tight: 1.15;
+  --lh-body: 1.5;
+  --tracking-tight: -0.01em;
+  --tracking-eyebrow: 1.2px;
+
+  /* ---- Shape ------------------------------------------------------------- */
+  --radius: 0.625rem;
+  --radius-control: 0.375rem;
+  --radius-chip: 0.5rem;
+  --radius-card: 0.625rem;
+  --radius-pill: 999px;
+
+  /* ---- Layered elevation ------------------------------------------------- */
+  --shadow-card: 0 1px 2px rgba(26, 43, 51, 0.05),
+    0 2px 8px rgba(26, 43, 51, 0.06);
+  --shadow-raised: 0 2px 4px rgba(26, 43, 51, 0.05),
+    0 10px 24px rgba(14, 110, 114, 0.1);
+  --shadow-menu: 0 4px 8px rgba(26, 43, 51, 0.06),
+    0 12px 32px rgba(26, 43, 51, 0.12);
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --dur-1: 120ms;
+  --dur-2: 180ms;
+  --ease-out: cubic-bezier(0.2, 0.6, 0.2, 1);
+
+  /* ---- Spacing (8px base) ------------------------------------------------ */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* ---- shadcn semantic mapping ------------------------------------------ */
   --background: var(--rcm-app-bg);
   --foreground: var(--rcm-fg-1);
   --card: var(--rcm-surface);
@@ -57,85 +141,26 @@
   --secondary-foreground: var(--rcm-fg-1);
   --muted: var(--rcm-surface-2);
   --muted-foreground: var(--rcm-fg-2);
-  --accent: var(--rcm-surface-2);
-  --accent-foreground: var(--rcm-fg-1);
+  --accent: var(--rcm-tint-hover);
+  --accent-foreground: var(--rcm-deep-teal);
   --destructive: var(--rcm-bad);
   --border: var(--rcm-line);
-  --input: var(--rcm-line);
+  --input: var(--rcm-line-strong);
   --ring: var(--rcm-teal);
 
-  /* data-viz: brand accents in priority order */
-  --chart-1: var(--rcm-teal);
-  --chart-2: var(--rcm-slate-blue);
-  --chart-3: var(--rcm-amber);
-  --chart-4: var(--rcm-light-teal);
+  /* Division colors are positional: AFP · ANC · IMP · INL. */
+  --chart-1: var(--rcm-div-afp);
+  --chart-2: var(--rcm-div-anc);
+  --chart-3: var(--rcm-div-imp);
+  --chart-4: var(--rcm-div-inl);
   --chart-5: var(--rcm-rose);
 
   --sidebar: var(--rcm-surface);
   --sidebar-foreground: var(--rcm-fg-1);
   --sidebar-primary: var(--rcm-teal);
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: var(--rcm-surface-2);
-  --sidebar-accent-foreground: var(--rcm-fg-1);
-  --sidebar-border: var(--rcm-line);
-  --sidebar-ring: var(--rcm-teal);
-}
-
-.dark {
-  /* ---- RCM raw palette (dark): deep teal-black canvas, lifted slate cards ---- */
-  --rcm-app-bg: #0e1a1d;
-  --rcm-surface: #15252a;
-  --rcm-surface-2: #1e343b;
-  --rcm-line: #2a3f46;
-  --rcm-line-soft: #243339;
-  --rcm-fg-1: #e8eef0;
-  --rcm-fg-2: #aec0c4;
-  --rcm-fg-3: #7c9499;
-
-  /* brighten the primary accent slightly for contrast on dark */
-  --rcm-teal: #2ab6bb;
-  --rcm-light-teal: #5bc9be;
-  /* deep-teal, slate-blue, amber, rose stay constant */
-
-  --rcm-good: #5fb985;
-  --rcm-neutral: #e6b06a;
-  --rcm-bad: #e2706c;
-
-  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.4);
-
-  /* shadcn semantic tokens re-reference the (now dark) raw palette automatically;
-     only override where dark needs a different relationship than light. */
-  --background: var(--rcm-app-bg);
-  --foreground: var(--rcm-fg-1);
-  --card: var(--rcm-surface);
-  --card-foreground: var(--rcm-fg-1);
-  --popover: var(--rcm-surface);
-  --popover-foreground: var(--rcm-fg-1);
-  --primary: var(--rcm-teal);
-  --primary-foreground: #04201f;
-  --secondary: var(--rcm-surface-2);
-  --secondary-foreground: var(--rcm-fg-1);
-  --muted: var(--rcm-surface-2);
-  --muted-foreground: var(--rcm-fg-2);
-  --accent: var(--rcm-surface-2);
-  --accent-foreground: var(--rcm-fg-1);
-  --destructive: var(--rcm-bad);
-  --border: var(--rcm-line);
-  --input: var(--rcm-line);
-  --ring: var(--rcm-teal);
-
-  --chart-1: var(--rcm-teal);
-  --chart-2: var(--rcm-slate-blue);
-  --chart-3: var(--rcm-amber);
-  --chart-4: var(--rcm-light-teal);
-  --chart-5: var(--rcm-rose);
-
-  --sidebar: var(--rcm-surface);
-  --sidebar-foreground: var(--rcm-fg-1);
-  --sidebar-primary: var(--rcm-teal);
-  --sidebar-primary-foreground: #04201f;
-  --sidebar-accent: var(--rcm-surface-2);
-  --sidebar-accent-foreground: var(--rcm-fg-1);
+  --sidebar-accent: var(--rcm-tint-hover);
+  --sidebar-accent-foreground: var(--rcm-deep-teal);
   --sidebar-border: var(--rcm-line);
   --sidebar-ring: var(--rcm-teal);
 }
@@ -145,7 +170,7 @@
     'Source Sans 3', Roboto, Helvetica, Arial, sans-serif;
   --font-heading: var(--font-sans);
 
-  /* shadcn semantic color utilities (bg-background, text-primary, …) */
+  /* shadcn semantic color utilities */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -178,32 +203,67 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* RCM brand utilities (bg-teal, text-fg-1, border-line, …) — available
-     alongside the semantic tokens for brand-specific accents. */
+  /* RCM brand utilities */
   --color-app: var(--rcm-app-bg);
   --color-surface: var(--rcm-surface);
   --color-surface-2: var(--rcm-surface-2);
   --color-line: var(--rcm-line);
+  --color-line-strong: var(--rcm-line-strong);
   --color-line-soft: var(--rcm-line-soft);
+  --color-ink: var(--rcm-ink);
   --color-fg-1: var(--rcm-fg-1);
   --color-fg-2: var(--rcm-fg-2);
   --color-fg-3: var(--rcm-fg-3);
+  --color-fg-disabled: var(--rcm-fg-disabled);
   --color-teal: var(--rcm-teal);
   --color-deep-teal: var(--rcm-deep-teal);
   --color-light-teal: var(--rcm-light-teal);
+  --color-aqua: var(--rcm-aqua);
+  --color-mint: var(--rcm-mint);
   --color-slate-blue: var(--rcm-slate-blue);
   --color-amber: var(--rcm-amber);
   --color-rose: var(--rcm-rose);
+  --color-hyperlink: var(--rcm-hyperlink);
+  --color-grad-min: var(--rcm-grad-min);
+  --color-grad-center: var(--rcm-grad-center);
+  --color-grad-max: var(--rcm-grad-max);
   --color-good: var(--rcm-good);
   --color-neutral: var(--rcm-neutral);
   --color-bad: var(--rcm-bad);
+  --color-tint-hover: var(--rcm-tint-hover);
+  --color-tint-selected: var(--rcm-tint-selected);
+  --color-tint-active: var(--rcm-tint-active);
+  --color-tint-good: var(--rcm-tint-good);
+  --color-tint-neutral: var(--rcm-tint-neutral);
+  --color-tint-bad: var(--rcm-tint-bad);
+  --color-div-afp: var(--rcm-div-afp);
+  --color-div-anc: var(--rcm-div-anc);
+  --color-div-imp: var(--rcm-div-imp);
+  --color-div-inl: var(--rcm-div-inl);
+  --color-sev-current: var(--rcm-sev-current);
+  --color-sev-1-30: var(--rcm-sev-1-30);
+  --color-sev-31-60: var(--rcm-sev-31-60);
+  --color-sev-61-90: var(--rcm-sev-61-90);
+  --color-sev-91-120: var(--rcm-sev-91-120);
+  --color-sev-121: var(--rcm-sev-121);
+  --color-data-1: var(--rcm-data-1);
+  --color-data-2: var(--rcm-data-2);
+  --color-data-3: var(--rcm-data-3);
+  --color-data-4: var(--rcm-data-4);
+  --color-data-5: var(--rcm-data-5);
+  --color-data-6: var(--rcm-data-6);
+  --color-data-7: var(--rcm-data-7);
+  --color-data-8: var(--rcm-data-8);
+  --color-data-9: var(--rcm-data-9);
+  --color-data-10: var(--rcm-data-10);
 
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
+  /* One radius per role; larger generic radii clamp to the card radius. */
+  --radius-sm: var(--radius-control);
+  --radius-md: var(--radius-chip);
+  --radius-lg: var(--radius-card);
+  --radius-xl: var(--radius-card);
+  --radius-2xl: var(--radius-card);
+  --radius-3xl: var(--radius-card);
 }
 
 @layer base {
@@ -216,7 +276,7 @@
   }
 
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
 
   html {
@@ -225,8 +285,71 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-fg-2;
+    min-height: 100vh;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--rcm-fg-1);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  h2 {
+    font-size: 14px;
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-size: 12px;
+  }
+
+  a {
+    color: var(--rcm-deep-teal);
+    text-decoration: none;
+    transition: color var(--dur-1) var(--ease-out);
+  }
+
+  a:hover {
+    color: var(--rcm-ink);
+  }
+
+  :where(button, a, input, select, textarea, [tabindex]):focus-visible {
+    outline: none;
+  }
+
+  :where(.tabular-nums, [data-numeric='true']) {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  [data-sonner-toast] {
+    transition-duration: var(--dur-2) !important;
+    transition-timing-function: var(--ease-out) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -15,25 +15,34 @@ Use `discover_packages` or `rayfin docs discover <topic>` when installed docs do
 These keep every RCM app looking like one product. Do not hand-roll chrome that
 already exists here, and do not restyle shared components per app.
 
+Before changing a visual artifact, read the RCM Design System's canonical
+`DESIGN.md` v2 specification. In the standard sibling checkout it is
+`../Design-System/DESIGN.md`; the repository source is
+https://github.com/RCM-Industries-Inc/Design-System/blob/main/DESIGN.md.
+
 - **App shell / top navigation — always the shared component.** Every app's
   header MUST be `app-shell`:
   `npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/app-shell`. Pass only
   `title` / `subtitle` / `context` / `actions`; never rebuild the logo,
-  separator order, height, theme toggle, or sign-out. It pulls in `theme-toggle`
-  + the `useTheme` hook and depends on the shared `button`. It expects the
-  scaffold's `AuthContext` and the RCM logos at `src/assets/Logo_RCM_Teal.png`
-  (light) and `Logo_RCM_White.png` (dark) — from the RCM Design System.
+  separator order, height, or sign-out. It depends on the shared `button` and
+  expects the scaffold's `AuthContext` plus the RCM teal logo at
+  `src/assets/Logo_RCM_Teal.png`.
 - **Sign-in page — always the shared component.** Every app's login MUST be
   `auth-page` (`npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/auth-page`).
   Pass only `title` / `subtitle` / `footer`; the card, the "Sign in with
   Microsoft" Button, and the sizing are fixed.
 - **Theme first.** Add `rcm-theme` before anything else
   (`… add …/rcm-theme`) so all shadcn components render in RCM Modern Teal
-  (light + dark). Build on the tokens; don't invent colors.
+  v2. This is one light, opaque theme: no dark mode, gradients, translucent
+  surfaces, backdrop blur, or glass effects. Build on the tokens; don't invent
+  colors, shadows, radii, or motion values.
 - **Primitives & composites.** Use the shared `button`, `modal`, `data-table`,
-  etc. Keep their sizes/variants; don't fork them.
-- **Canonical spec.** The full header/nav standard (height, order, sizes) is
-  documented in the RCM Design System under "App Shell & Top Navigation".
+  etc. from this registry, not same-named upstream shadcn items. Keep their
+  sizes/variants; don't fork them.
+- **Typography & data.** Use Segoe UI/system fallbacks, weights 400/600 only,
+  and tabular lining figures for every value that can change.
+- **Canonical spec.** If this repository disagrees with RCM Design System
+  `DESIGN.md`, update rayfin-ui to match it.
 
 ### Adding or changing a shared component
 
@@ -49,4 +58,6 @@ isn't app-specific (chrome, a primitive, a pattern any app could reuse):
 App-specific UI (tied to one app's domain) stays in that app. Everything reusable
 belongs here — **default to promoting it.**
 
-Evolving these shared standards should be **additive** — extend, don't fork.
+Evolve shared standards centrally. Extend reusable APIs when appropriate; when
+the canonical Design System retires a pattern, migrate it here instead of
+preserving a visual fork.
