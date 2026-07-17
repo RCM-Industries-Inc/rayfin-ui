@@ -469,7 +469,7 @@
       "name": "data-table",
       "type": "registry:component",
       "title": "RCM DataTable",
-      "description": "Client-sorted RCM matrix over TanStack Table with canonical header, row states, alignment, and tabular figures.",
+      "description": "Client-sorted RCM matrix over TanStack Table with a container-bounded fixed layout, optional column widths, canonical header, row states, alignment, and tabular figures.",
       "dependencies": ["@tanstack/react-table", "lucide-react"],
       "registryDependencies": [
         "RCM-Industries-Inc/rayfin-ui/table",
