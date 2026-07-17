@@ -2,13 +2,16 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
+@custom-variant dark (&:is(.dark *));
+
 /* ============================================================================
    RCM Industries — Modern Teal v2.0
    Source of truth: RCM Design System / DESIGN.md.
 
-   One light, editorial, fully opaque theme. Teal Glass and dark mode are
-   retired. Components consume semantic tokens; applications must not invent
-   colors, shadows, radii, or motion values locally.
+   The canonical light theme plus rayfin-ui's opaque web dark theme. The retired
+   Teal Glass treatment stays retired: neither mode uses gradients, translucent
+   surfaces, backdrop blur, or glow effects. Components consume semantic tokens;
+   applications must not invent colors, shadows, radii, or motion values locally.
    ============================================================================ */
 
 :root {
@@ -48,6 +51,11 @@
   --rcm-tint-selected: rgba(21, 160, 166, 0.1);
   --rcm-tint-active: rgba(21, 160, 166, 0.14);
   --rcm-focus-color: rgba(21, 160, 166, 0.28);
+  --rcm-primary-hover: var(--rcm-deep-teal);
+  --rcm-table-header: var(--rcm-deep-teal);
+  --rcm-table-header-foreground: #ffffff;
+  --rcm-table-header-hover: rgba(255, 255, 255, 0.12);
+  --rcm-overlay: rgba(26, 43, 51, 0.12);
   --focus-ring: 0 0 0 3px var(--rcm-focus-color);
 
   /* ---- Sentiment --------------------------------------------------------- */
@@ -163,6 +171,117 @@
   --sidebar-accent-foreground: var(--rcm-deep-teal);
   --sidebar-border: var(--rcm-line);
   --sidebar-ring: var(--rcm-teal);
+}
+
+/*
+ * Web-only dark counterpart to Modern Teal v2. Brand hues and component craft
+ * stay constant; semantic foregrounds, surfaces, data colors, and state washes
+ * are adapted for contrast on a dark canvas. Every surface remains opaque.
+ */
+.dark {
+  color-scheme: dark;
+
+  /* Brand colors remain recognizable; text roles become lighter. */
+  --rcm-hyperlink: #8fd9cf;
+  --rcm-ink: #f1f7f8;
+  --rcm-fg-1: #f1f7f8;
+  --rcm-fg-2: #c7d6d8;
+  --rcm-fg-3: #90a5a8;
+  --rcm-fg-disabled: #6e8588;
+
+  /* Opaque surfaces derived from the canonical dark teal-ink frame. */
+  --rcm-app-bg: #10282b;
+  --rcm-surface: #173236;
+  --rcm-surface-2: #203d41;
+  --rcm-line: #2d4b4f;
+  --rcm-line-strong: #456267;
+  --rcm-line-soft: #274247;
+  --rcm-grad-min: #e2949d;
+  --rcm-grad-center: #456267;
+  --rcm-grad-max: #5bc9be;
+
+  /* Teal washes are interaction states, never standalone surfaces. */
+  --rcm-tint-hover: rgba(91, 201, 190, 0.08);
+  --rcm-tint-selected: rgba(91, 201, 190, 0.14);
+  --rcm-tint-active: rgba(91, 201, 190, 0.2);
+  --rcm-focus-color: rgba(91, 201, 190, 0.42);
+  --rcm-primary-hover: #5bc9be;
+  --rcm-table-header: #0e6e72;
+  --rcm-table-header-foreground: #ffffff;
+  --rcm-table-header-hover: rgba(255, 255, 255, 0.12);
+  --rcm-overlay: rgba(7, 23, 26, 0.68);
+  --focus-ring: 0 0 0 3px var(--rcm-focus-color);
+
+  /* Sentiment keeps its meaning with enough luminance for dark surfaces. */
+  --rcm-good: #72c995;
+  --rcm-neutral: #e6b86f;
+  --rcm-bad: #f07a76;
+  --rcm-tint-good: rgba(114, 201, 149, 0.16);
+  --rcm-tint-neutral: rgba(230, 184, 111, 0.17);
+  --rcm-tint-bad: rgba(240, 122, 118, 0.16);
+  --rcm-good-text: #8ed8aa;
+  --rcm-bad-text: #ff9894;
+
+  /* Positional color meaning is preserved with dark-canvas lightness. */
+  --rcm-sev-current: #8fd9cf;
+  --rcm-sev-1-30: #5bc9be;
+  --rcm-sev-31-60: #e6b86f;
+  --rcm-sev-61-90: #e99a5b;
+  --rcm-sev-91-120: #e77b63;
+  --rcm-sev-121: #f07a76;
+
+  --rcm-data-1: #5bc9be;
+  --rcm-data-2: #8fd9cf;
+  --rcm-data-3: #6f9bc4;
+  --rcm-data-4: #e6b86f;
+  --rcm-data-5: #e2949d;
+  --rcm-data-6: #8fba96;
+  --rcm-data-7: #b3a3d2;
+  --rcm-data-8: #c7d6d8;
+  --rcm-data-9: #3fb6bc;
+  --rcm-data-10: #9fb3ba;
+
+  /* The same three elevation roles, kept restrained on the dark canvas. */
+  --shadow-card: 0 1px 2px rgba(7, 23, 26, 0.08),
+    0 2px 8px rgba(7, 23, 26, 0.1);
+  --shadow-raised: 0 2px 4px rgba(7, 23, 26, 0.1),
+    0 10px 24px rgba(91, 201, 190, 0.12);
+  --shadow-menu: 0 4px 8px rgba(7, 23, 26, 0.1),
+    0 12px 32px rgba(7, 23, 26, 0.12);
+
+  --background: var(--rcm-app-bg);
+  --foreground: var(--rcm-fg-1);
+  --card: var(--rcm-surface);
+  --card-foreground: var(--rcm-fg-1);
+  --popover: var(--rcm-surface);
+  --popover-foreground: var(--rcm-fg-1);
+  --primary: #3fb6bc;
+  --primary-foreground: #10282b;
+  --secondary: var(--rcm-surface-2);
+  --secondary-foreground: var(--rcm-fg-1);
+  --muted: var(--rcm-surface-2);
+  --muted-foreground: var(--rcm-fg-2);
+  --accent: var(--rcm-tint-hover);
+  --accent-foreground: #8fd9cf;
+  --destructive: var(--rcm-bad);
+  --border: var(--rcm-line);
+  --input: var(--rcm-line-strong);
+  --ring: #5bc9be;
+
+  --chart-1: var(--rcm-data-1);
+  --chart-2: var(--rcm-data-2);
+  --chart-3: var(--rcm-data-3);
+  --chart-4: var(--rcm-data-4);
+  --chart-5: var(--rcm-data-5);
+
+  --sidebar: var(--rcm-surface);
+  --sidebar-foreground: var(--rcm-fg-1);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--rcm-tint-hover);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--rcm-line);
+  --sidebar-ring: var(--ring);
 }
 
 @theme inline {

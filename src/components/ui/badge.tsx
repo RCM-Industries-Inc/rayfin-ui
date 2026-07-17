@@ -9,19 +9,19 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground [a]:hover:bg-deep-teal",
+        default: "bg-primary text-primary-foreground [a]:hover:bg-[var(--rcm-primary-hover)]",
         secondary:
-          "bg-tint-selected text-deep-teal [a]:hover:bg-tint-active",
+          "bg-tint-selected text-accent-foreground [a]:hover:bg-tint-active",
         destructive:
           "bg-tint-bad text-[var(--rcm-bad-text)] [a]:hover:text-ink",
         good: "bg-tint-good text-[var(--rcm-good-text)]",
         neutral: "bg-tint-neutral text-ink",
         bad: "bg-tint-bad text-[var(--rcm-bad-text)]",
         outline:
-          "border-border bg-card text-deep-teal [a]:hover:bg-tint-hover",
+          "border-border bg-card text-accent-foreground [a]:hover:bg-tint-hover",
         ghost:
-          "text-fg-2 hover:bg-tint-hover hover:text-deep-teal",
-        link: "text-deep-teal hover:text-ink",
+          "text-fg-2 hover:bg-tint-hover hover:text-accent-foreground",
+        link: "text-accent-foreground hover:text-ink",
       },
     },
     defaultVariants: {

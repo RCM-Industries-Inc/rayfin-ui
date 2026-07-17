@@ -9,16 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-deep-teal",
+        default: "bg-primary text-primary-foreground hover:bg-[var(--rcm-primary-hover)]",
         outline:
-          "border-border bg-card text-deep-teal hover:border-line-strong hover:bg-tint-hover hover:text-deep-teal aria-expanded:border-line-strong aria-expanded:bg-tint-selected",
+          "border-border bg-card text-accent-foreground hover:border-line-strong hover:bg-tint-hover hover:text-accent-foreground aria-expanded:border-line-strong aria-expanded:bg-tint-selected",
         secondary:
-          "border-border bg-card text-deep-teal hover:border-line-strong hover:bg-tint-hover aria-expanded:bg-tint-selected",
+          "border-border bg-card text-accent-foreground hover:border-line-strong hover:bg-tint-hover aria-expanded:bg-tint-selected",
         ghost:
-          "text-fg-2 hover:bg-tint-hover hover:text-deep-teal aria-expanded:bg-tint-selected aria-expanded:text-deep-teal",
+          "text-fg-2 hover:bg-tint-hover hover:text-accent-foreground aria-expanded:bg-tint-selected aria-expanded:text-accent-foreground",
         destructive:
           "bg-tint-bad text-[var(--rcm-bad-text)] hover:bg-tint-bad hover:text-[var(--rcm-ink)] focus-visible:ring-[var(--rcm-tint-bad)]",
-        link: "text-deep-teal hover:text-ink",
+        link: "text-accent-foreground hover:text-ink",
       },
       size: {
         default:

@@ -7,7 +7,7 @@
       "name": "rcm-theme",
       "type": "registry:theme",
       "title": "RCM Modern Teal v2 theme",
-      "description": "The single light, opaque RCM Industries theme. Includes canonical palette, state, elevation, radius, motion, sentiment, severity, and division tokens.",
+      "description": "The canonical light Modern Teal theme plus rayfin-ui's opaque, contrast-safe web dark theme. Includes palette, state, elevation, radius, motion, sentiment, severity, and division tokens.",
       "cssVars": {
         "theme": {
           "font-sans": "'Segoe UI', system-ui, -apple-system, 'Segoe UI Variable', 'Source Sans 3', Roboto, Helvetica, Arial, sans-serif",
@@ -135,6 +135,11 @@
           "rcm-tint-selected": "rgba(21, 160, 166, 0.10)",
           "rcm-tint-active": "rgba(21, 160, 166, 0.14)",
           "rcm-focus-color": "rgba(21, 160, 166, 0.28)",
+          "rcm-primary-hover": "#0e6e72",
+          "rcm-table-header": "#0e6e72",
+          "rcm-table-header-foreground": "#ffffff",
+          "rcm-table-header-hover": "rgba(255, 255, 255, 0.12)",
+          "rcm-overlay": "rgba(26, 43, 51, 0.12)",
           "focus-ring": "0 0 0 3px rgba(21, 160, 166, 0.28)",
           "rcm-good": "#4fa672",
           "rcm-neutral": "#e0a458",
@@ -190,8 +195,126 @@
           "dur-1": "120ms",
           "dur-2": "180ms",
           "ease-out": "cubic-bezier(0.2, 0.6, 0.2, 1)"
+        },
+        "dark": {
+          "background": "#10282b",
+          "foreground": "#f1f7f8",
+          "card": "#173236",
+          "card-foreground": "#f1f7f8",
+          "popover": "#173236",
+          "popover-foreground": "#f1f7f8",
+          "primary": "#3fb6bc",
+          "primary-foreground": "#10282b",
+          "secondary": "#203d41",
+          "secondary-foreground": "#f1f7f8",
+          "muted": "#203d41",
+          "muted-foreground": "#c7d6d8",
+          "accent": "rgba(91, 201, 190, 0.08)",
+          "accent-foreground": "#8fd9cf",
+          "destructive": "#f07a76",
+          "border": "#2d4b4f",
+          "input": "#456267",
+          "ring": "#5bc9be",
+          "chart-1": "#5bc9be",
+          "chart-2": "#8fd9cf",
+          "chart-3": "#6f9bc4",
+          "chart-4": "#e6b86f",
+          "chart-5": "#e2949d",
+          "sidebar": "#173236",
+          "sidebar-foreground": "#f1f7f8",
+          "sidebar-primary": "#3fb6bc",
+          "sidebar-primary-foreground": "#10282b",
+          "sidebar-accent": "rgba(91, 201, 190, 0.08)",
+          "sidebar-accent-foreground": "#8fd9cf",
+          "sidebar-border": "#2d4b4f",
+          "sidebar-ring": "#5bc9be",
+          "rcm-hyperlink": "#8fd9cf",
+          "rcm-ink": "#f1f7f8",
+          "rcm-fg-1": "#f1f7f8",
+          "rcm-fg-2": "#c7d6d8",
+          "rcm-fg-3": "#90a5a8",
+          "rcm-fg-disabled": "#6e8588",
+          "rcm-app-bg": "#10282b",
+          "rcm-surface": "#173236",
+          "rcm-surface-2": "#203d41",
+          "rcm-line": "#2d4b4f",
+          "rcm-line-strong": "#456267",
+          "rcm-line-soft": "#274247",
+          "rcm-grad-min": "#e2949d",
+          "rcm-grad-center": "#456267",
+          "rcm-grad-max": "#5bc9be",
+          "rcm-tint-hover": "rgba(91, 201, 190, 0.08)",
+          "rcm-tint-selected": "rgba(91, 201, 190, 0.14)",
+          "rcm-tint-active": "rgba(91, 201, 190, 0.20)",
+          "rcm-focus-color": "rgba(91, 201, 190, 0.42)",
+          "rcm-primary-hover": "#5bc9be",
+          "rcm-table-header": "#0e6e72",
+          "rcm-table-header-foreground": "#ffffff",
+          "rcm-table-header-hover": "rgba(255, 255, 255, 0.12)",
+          "rcm-overlay": "rgba(7, 23, 26, 0.68)",
+          "focus-ring": "0 0 0 3px rgba(91, 201, 190, 0.42)",
+          "rcm-good": "#72c995",
+          "rcm-neutral": "#e6b86f",
+          "rcm-bad": "#f07a76",
+          "rcm-tint-good": "rgba(114, 201, 149, 0.16)",
+          "rcm-tint-neutral": "rgba(230, 184, 111, 0.17)",
+          "rcm-tint-bad": "rgba(240, 122, 118, 0.16)",
+          "rcm-good-text": "#8ed8aa",
+          "rcm-bad-text": "#ff9894",
+          "rcm-sev-current": "#8fd9cf",
+          "rcm-sev-1-30": "#5bc9be",
+          "rcm-sev-31-60": "#e6b86f",
+          "rcm-sev-61-90": "#e99a5b",
+          "rcm-sev-91-120": "#e77b63",
+          "rcm-sev-121": "#f07a76",
+          "rcm-data-1": "#5bc9be",
+          "rcm-data-2": "#8fd9cf",
+          "rcm-data-3": "#6f9bc4",
+          "rcm-data-4": "#e6b86f",
+          "rcm-data-5": "#e2949d",
+          "rcm-data-6": "#8fba96",
+          "rcm-data-7": "#b3a3d2",
+          "rcm-data-8": "#c7d6d8",
+          "rcm-data-9": "#3fb6bc",
+          "rcm-data-10": "#9fb3ba",
+          "shadow-card": "0 1px 2px rgba(7, 23, 26, 0.08), 0 2px 8px rgba(7, 23, 26, 0.10)",
+          "shadow-raised": "0 2px 4px rgba(7, 23, 26, 0.10), 0 10px 24px rgba(91, 201, 190, 0.12)",
+          "shadow-menu": "0 4px 8px rgba(7, 23, 26, 0.10), 0 12px 32px rgba(7, 23, 26, 0.12)"
         }
       }
+    },
+    {
+      "name": "theme-provider",
+      "type": "registry:component",
+      "title": "RCM Theme Provider",
+      "description": "Persistent light, dark, and system preference for Vite-based Rayfin apps, including live operating-system theme updates.",
+      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/rcm-theme"],
+      "files": [
+        {
+          "path": "src/components/rcm/theme-provider.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/theme-provider.tsx"
+        }
+      ]
+    },
+    {
+      "name": "theme-toggle",
+      "type": "registry:component",
+      "title": "RCM Theme Toggle",
+      "description": "Compact light, dark, and system selector for the standard RCM app shell.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "RCM-Industries-Inc/rayfin-ui/theme-provider",
+        "RCM-Industries-Inc/rayfin-ui/button",
+        "RCM-Industries-Inc/rayfin-ui/dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "src/components/rcm/theme-toggle.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/theme-toggle.tsx"
+        }
+      ]
     },
     {
       "name": "button",
@@ -314,6 +437,7 @@
       "type": "registry:ui",
       "title": "RCM Toasts",
       "dependencies": ["lucide-react", "sonner"],
+      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/theme-provider"],
       "files": [{ "path": "src/components/ui/sonner.tsx", "type": "registry:ui" }]
     },
     {
@@ -363,9 +487,12 @@
       "name": "app-shell",
       "type": "registry:component",
       "title": "RCM App Shell",
-      "description": "The standard opaque RCM app top navigation and page canvas: teal logo, title/subtitle, optional context and actions, user, and sign out. Uses the single Modern Teal v2 theme.",
+      "description": "The standard opaque RCM app top navigation and page canvas: theme-aware logo, title/subtitle, optional context and actions, theme selector, user, and sign out.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/button"],
+      "registryDependencies": [
+        "RCM-Industries-Inc/rayfin-ui/button",
+        "RCM-Industries-Inc/rayfin-ui/theme-toggle"
+      ],
       "files": [
         {
           "path": "src/components/rcm/app-shell.tsx",
@@ -378,8 +505,11 @@
       "name": "auth-page",
       "type": "registry:component",
       "title": "RCM Auth Page",
-      "description": "The standard RCM sign-in page: flat off-white page, opaque elevated card, teal logo, app title/subtitle, and Microsoft sign-in button.",
-      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/button"],
+      "description": "The standard RCM sign-in page: opaque themed page and elevated card, theme-aware logo, app title/subtitle, theme selector, and Microsoft sign-in button.",
+      "registryDependencies": [
+        "RCM-Industries-Inc/rayfin-ui/button",
+        "RCM-Industries-Inc/rayfin-ui/theme-toggle"
+      ],
       "files": [
         {
           "path": "src/components/rcm/auth-page.tsx",

@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 
+import { ThemeProvider } from '@/components/rcm/theme-provider';
 import { ShowcaseApp } from '@/showcase/ShowcaseApp';
 
 import './main.css';
@@ -8,4 +9,8 @@ import './main.css';
 // backend dependency, so it can be served from GitHub Pages. The Fabric-auth
 // scaffolding (App.tsx, AuthPage, services) remains in the repo for the
 // template/starter role; point this entry at <App /> to use it.
-createRoot(document.getElementById('root')!).render(<ShowcaseApp />);
+createRoot(document.getElementById('root')!).render(
+  <ThemeProvider>
+    <ShowcaseApp />
+  </ThemeProvider>
+);

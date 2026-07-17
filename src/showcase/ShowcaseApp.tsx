@@ -69,8 +69,10 @@ import {
 } from '@/components/ui/field';
 import { Modal } from '@/components/rcm/modal';
 import { DataTable } from '@/components/rcm/data-table';
+import { ThemeToggle } from '@/components/rcm/theme-toggle';
 import { type ColumnDef } from '@tanstack/react-table';
 import logoTeal from '@/assets/Logo_RCM_Teal.png';
+import logoWhite from '@/assets/Logo_RCM_White.png';
 
 type LoadRow = {
   load: string;
@@ -173,7 +175,10 @@ export function ShowcaseApp() {
       <div className="min-h-screen bg-background text-fg-2">
         <header className="sticky top-0 z-10 border-b border-border bg-card">
           <div className="mx-auto flex h-16 max-w-5xl items-center gap-3 px-6">
-            <img src={logoTeal} alt="RCM Industries" className="h-9 w-auto shrink-0" />
+            <div className="h-9 shrink-0">
+              <img src={logoTeal} alt="RCM Industries" className="h-9 w-auto dark:hidden" />
+              <img src={logoWhite} alt="RCM Industries" className="hidden h-9 w-auto dark:block" />
+            </div>
             <div className="h-8 w-px shrink-0 bg-border" />
             <div className="min-w-0 leading-tight">
               <h1 className="text-xl font-semibold tracking-tight text-fg-1">Rayfin UI</h1>
@@ -181,13 +186,16 @@ export function ShowcaseApp() {
                 RCM component library · shadcn/ui + Modern Teal
               </p>
             </div>
+            <div className="ml-auto">
+              <ThemeToggle />
+            </div>
           </div>
         </header>
 
         <main className="mx-auto max-w-5xl space-y-12 px-6 py-10">
           <Section
             title="Brand palette"
-            description="One opaque light theme. Color encodes brand, division, sentiment, or severity—not decoration."
+            description="Opaque light and dark themes. Color encodes brand, division, sentiment, or severity—not decoration."
           >
             <div className="space-y-6">
               <div className="grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-6">
@@ -313,7 +321,7 @@ export function ShowcaseApp() {
                   <span className="size-[9px] rounded-[2px] bg-teal" aria-hidden />
                   Open backlog
                 </div>
-                <div className="text-[30px] leading-none font-semibold text-deep-teal tabular-nums">
+                <div className="text-[30px] leading-none font-semibold text-accent-foreground tabular-nums">
                   $2,418,930
                 </div>
                 <div className="mt-2 text-[11px] font-semibold text-good tabular-nums">

@@ -24,18 +24,21 @@ https://github.com/RCM-Industries-Inc/Design-System/blob/main/DESIGN.md.
   header MUST be `app-shell`:
   `npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/app-shell`. Pass only
   `title` / `subtitle` / `context` / `actions`; never rebuild the logo,
-  separator order, height, or sign-out. It depends on the shared `button` and
-  expects the scaffold's `AuthContext` plus the RCM teal logo at
-  `src/assets/Logo_RCM_Teal.png`.
+  separator order, height, theme selector, or sign-out. It depends on the
+  shared `button` and `theme-toggle`, and expects the scaffold's `AuthContext`
+  plus the teal and white RCM logos in `src/assets/`.
 - **Sign-in page — always the shared component.** Every app's login MUST be
   `auth-page` (`npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/auth-page`).
   Pass only `title` / `subtitle` / `footer`; the card, the "Sign in with
   Microsoft" Button, and the sizing are fixed.
 - **Theme first.** Add `rcm-theme` before anything else
   (`… add …/rcm-theme`) so all shadcn components render in RCM Modern Teal
-  v2. This is one light, opaque theme: no dark mode, gradients, translucent
-  surfaces, backdrop blur, or glass effects. Build on the tokens; don't invent
-  colors, shadows, radii, or motion values.
+  v2. Rayfin apps must support the canonical light theme and rayfin-ui's opaque
+  web dark theme. Add `theme-provider`, wrap the application root, and keep the
+  shared `theme-toggle` in `app-shell` and `auth-page`. The retired Teal Glass
+  treatment stays retired: no gradients, translucent surfaces, backdrop blur,
+  glow effects, or decorative glass. Build on the tokens; don't invent colors,
+  shadows, radii, or motion values.
 - **Primitives & composites.** Use the shared `button`, `modal`, `data-table`,
   etc. from this registry, not same-named upstream shadcn items. Keep their
   sizes/variants; don't fork them.
