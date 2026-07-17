@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className={`${isNumericColumn(header.column.id) ? 'ml-auto' : '-ml-2'} h-7 rounded-sm px-2 text-[10.5px] font-semibold text-white hover:bg-primary hover:text-white focus-visible:ring-white`}
+                      className={`${isNumericColumn(header.column.id) ? 'ml-auto' : '-ml-2'} h-7 rounded-sm px-2 text-[10.5px] font-semibold text-[var(--rcm-table-header-foreground)] hover:bg-[var(--rcm-table-header-hover)] hover:text-[var(--rcm-table-header-foreground)] focus-visible:ring-[var(--rcm-table-header-foreground)]`}
                       onClick={header.column.getToggleSortingHandler()}
                     >
                       {flexRender(

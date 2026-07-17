@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/rcm/theme-toggle';
 import { useAuth } from '@/hooks/AuthContext';
 import logoTeal from '@/assets/Logo_RCM_Teal.png';
+import logoWhite from '@/assets/Logo_RCM_White.png';
 
 /** Microsoft four-square mark for the sign-in button. */
 const msLogo = (
@@ -25,7 +27,7 @@ interface AuthPageProps {
 
 /**
  * The standard RCM sign-in page — one consistent login card across every RCM
- * Rayfin app: teal logo, app title/subtitle, and the shared "Sign in with
+ * Rayfin app: theme-aware logo, app title/subtitle, and the shared "Sign in with
  * Microsoft" Button on the flat Modern Teal page. Apps customize ONLY
  * `title` / `subtitle` / `footer`; the card, button, and sizing are fixed so
  * every app's login reads as one product. Uses only shadcn semantic tokens.
@@ -58,16 +60,18 @@ export function AuthPage({
     : 'Sign in with Microsoft';
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="relative flex min-h-screen flex-col bg-background">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <div className="flex flex-1 items-center justify-center p-4">
         <div className="w-full max-w-sm">
           <div className="rounded-lg border border-border bg-card p-8 shadow-[var(--shadow-card)]">
             <div className="mb-8 flex flex-col items-center text-center">
-              <img
-                src={logoTeal}
-                alt="RCM Industries"
-                className="mb-5 h-10 w-auto"
-              />
+              <div className="mb-5 h-10">
+                <img src={logoTeal} alt="RCM Industries" className="h-10 w-auto dark:hidden" />
+                <img src={logoWhite} alt="RCM Industries" className="hidden h-10 w-auto dark:block" />
+              </div>
               <h1 className="text-xl font-semibold tracking-tight text-fg-1">{title}</h1>
               {subtitle && <p className="mt-2 text-[13px] text-fg-2">{subtitle}</p>}
             </div>
