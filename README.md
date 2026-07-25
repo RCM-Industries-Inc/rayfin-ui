@@ -1,176 +1,151 @@
-# Rayfin UI
+# rayfin-ui
 
-The RCM Industries component standard for Rayfin apps — a [shadcn/ui](https://ui.shadcn.com)
-component library implementing the **Modern Teal v2** design system, distributed as a
-[GitHub registry](https://ui.shadcn.com/docs/registry/github).
+`rayfin-ui` is the canonical **web application UI layer** for RCM Industries.
+It translates the company's shared brand foundations into accessible,
+responsive React components for Rayfin apps and distributes their source
+through a shadcn registry.
 
-The canonical light visual specification is the RCM Design System
-[`DESIGN.md`](https://github.com/RCM-Industries-Inc/Design-System/blob/main/DESIGN.md).
-Rayfin UI adds the web-specific dark counterpart required by RCM applications.
-Both modes are fully opaque and use the same typography, shape, motion, and
-component language. The former dark/glass treatment remains retired.
+This repository has two jobs:
 
-This one repository plays three roles:
-
-| Role | What it is |
+| Role | Purpose |
 | --- | --- |
-| **Showcase** | A static gallery and visual contract for Modern Teal v2, deployed to GitHub Pages. |
-| **Registry** | `registry.json` at the repo root, plus per-item files published to Pages under `/r/` — apps pull components via `shadcn add` (GitHub shorthand or the `@rcm` namespace). |
-| **Starter template** | Pre-wired Rayfin (Vite + React 19 + Tailwind v4 + Fabric auth) — clone to start a new app. |
+| Web component registry | Own the standard theme, primitives, app shell, sign-in page, and reusable composites. |
+| Static showcase | Make the web standard visible and testable without a Rayfin backend. |
 
-> **Note:** distribution uses the GitHub registry, which requires this repo to be
-> **public** on `github.com`. The component source is public; no secrets live here.
+It is not an application starter and contains no application data model or
+Fabric deployment configuration. Start applications from
+[`Rayfin_Template`](https://github.com/RCM-Industries-Inc/Rayfin_Template).
 
-## Start a new app on the standard
+## How the three repositories work together
 
-Begin from Rayfin's `blankapp` template (Fabric auth + routing + Vite + Tailwind v4),
-then pull the RCM standard onto it. On Windows, run these in **Git Bash** (PowerShell
-may block `npm.ps1` via execution policy; alternatively use `npm.cmd`).
+| Repository | Authority |
+| --- | --- |
+| [`Design-System`](https://github.com/RCM-Industries-Inc/Design-System) | Cross-medium RCM brand foundation: especially colors, division assignments, logo rules, and shared identity. |
+| **`rayfin-ui`** | Web-specific interpretation: semantic tokens, typography, accessibility, interaction, dark mode, and component APIs. |
+| [`Rayfin_Template`](https://github.com/RCM-Industries-Inc/Rayfin_Template) | Golden-path Rayfin application with auth, routing, app configuration, validation, and the web foundation already installed. |
 
-```bash
-# 1. Scaffold the blankapp (interactive — choose "Blank App")
-npm create @microsoft/rayfin@latest my-new-app
-#    …or non-interactive:
-#    npm create @microsoft/rayfin@latest -- my-new-app -t blankapp --project-name my-new-app
+Report, Office, and presentation recipes from `Design-System` are not
+automatically web rules. Web code preserves the universal brand foundation and
+then follows this repository.
 
-cd my-new-app
+See [Foundation contract](docs/FOUNDATION.md) for the full ownership boundary.
 
-# 2. Initialize shadcn (lays down neutral tokens)
-npx shadcn@latest init -t vite -b radix -p nova -y
+## Starting a new app
 
-# 3. Register the RCM registry namespace (one-time)
-npx shadcn@latest registry add @rcm=https://rcm-industries-inc.github.io/rayfin-ui/r/{name}.json
+Clone or create a repository from `Rayfin_Template`. Do not clone this
+showcase/registry and strip files from it.
 
-# 4. Pull the RCM standard from this registry (theme first)
-npx shadcn@latest add @rcm/rcm-theme
-npx shadcn@latest add @rcm/theme-provider
-npx shadcn@latest add @rcm/button @rcm/input @rcm/select @rcm/field
-npx shadcn@latest add @rcm/app-shell @rcm/auth-page
-npx shadcn@latest add @rcm/modal @rcm/data-table
+The template already contains:
+
+- Vite, React, TypeScript, Tailwind 4, and shadcn `radix-nova`
+- the `@rcm` registry namespace
+- the `@rcm/app-foundation` baseline
+- RCM brand assets
+- Rayfin auth, routing, data-schema, and Fabric defaults
+- instructions and checks for future agents
+
+## Consuming the registry directly
+
+Existing shadcn projects can register the namespace in `components.json`:
+
+```json
+{
+  "registries": {
+    "@rcm": "https://rcm-industries-inc.github.io/rayfin-ui/r/{name}.json"
+  }
+}
 ```
 
-Tidy-up after step 2: `init` adds a Geist webfont `@import` to `src/main.css` —
-delete it, since `rcm-theme` sets the RCM Segoe/system font stack. Wrap the app
-root in `<ThemeProvider>` as shown under [Theme](#theme); `app-shell` and
-`auth-page` include the standard selector.
+Install the coordinated baseline:
 
-Other Rayfin templates (the `-t` flag): `blankapp` (auth only), `todoapp`,
-`gettingstartedauth`, `dataapp` (when the app needs a Fabric data model).
-
-**Alternative — clone this repo:** `rayfin-ui` is already shadcn + RCM-themed +
-Fabric-wired, so you can `git clone` it, delete `src/showcase`, point
-`src/main.tsx` back at `<App />`, and rename in `package.json` + `rayfin/rayfin.yml`.
-Faster to a themed app, but you inherit showcase/registry files you must strip —
-fine for a spike, less clean as a repeatable pattern.
-
-## Consuming components in another Rayfin app
-
-In an app that already has shadcn initialized (`npx shadcn@latest init`), register
-the `@rcm` namespace once, then add components by their short name. The namespace is
-backed by the per-item files this repo publishes to GitHub Pages, and it's what the
-**shadcn MCP server** needs to search/browse the registry.
-
-```bash
-# 1. Register the namespace (one-time, writes to components.json)
-npx shadcn@latest registry add @rcm=https://rcm-industries-inc.github.io/rayfin-ui/r/{name}.json
-
-# 2. Brand tokens and behavior — do this first
-npx shadcn@latest add @rcm/rcm-theme
-npx shadcn@latest add @rcm/theme-provider
-
-# 3. Components — pulls the source into your repo (it's yours to edit)
-npx shadcn@latest add @rcm/button @rcm/card @rcm/modal @rcm/data-table
-
-# Browse what's available
-npx shadcn@latest search @rcm
+```powershell
+npx shadcn@latest view @rcm/app-foundation
+npx shadcn@latest add @rcm/app-foundation --dry-run
+npx shadcn@latest add @rcm/app-foundation
 ```
 
-`shadcn add` copies the component **source** into your tree (vendoring). RCM
-composites resolve their dependencies to the RCM-owned primitives in this
-registry, preserving v2 radii, states, focus, motion, and elevation. It is a
-one-time copy, not a runtime dependency—re-run `add` to pull updates.
+Or install one item:
 
-**Without registering a namespace**, the GitHub shorthand resolves the same registry:
-
-```bash
-npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/rcm-theme
-npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/modal
+```powershell
+npx shadcn@latest add @rcm/button
 ```
 
-## Available registry items
+`shadcn add` intentionally copies source into the consuming repository. This
+keeps applications independent at runtime and lets teams make genuinely
+app-specific changes. It is not automatic inheritance:
 
-| Item | Type | Description |
-| --- | --- | --- |
-| `rcm-theme` | theme | Canonical light tokens plus the opaque web dark token system. |
-| `theme-provider`, `theme-toggle` | component | Persistent light/dark/system behavior and the standard selector. |
-| `button`, `badge`, `card` | UI | RCM actions, status pills, and elevated containers. |
-| `input`, `textarea`, `select`, `checkbox`, `field` | UI | Opaque form controls with canonical focus and state behavior. |
-| `table`, `tabs` | UI | RCM matrix and page-navigation recipes. |
-| `dialog`, `dropdown-menu`, `popover`, `sheet`, `tooltip`, `sonner` | UI | Overlays and feedback using v2 elevation and motion. |
-| `modal` | component | Dialog-based modal with an ergonomic `title`/`subtitle`/`footer` API. |
-| `data-table` | component | Themed, client-sorted table over `@tanstack/react-table` + the shadcn Table. |
-| `app-shell` | component | Required RCM top navigation and aligned page canvas. |
-| `auth-page` | component | Required RCM Microsoft sign-in page. |
+- fix a generic pattern in `rayfin-ui`;
+- inspect the update with `--dry-run` and `--diff`;
+- deliberately refresh the starter or an application;
+- never overwrite local application changes without review.
 
-Use the `@rcm` version of any primitive listed above. Upstream shadcn components
-are a starting point, but their default radii, motion, focus, and interaction
-states are not the RCM standard.
+The source-copy model and update workflow are detailed in
+[Maintenance](docs/MAINTENANCE.md).
 
-## Migrating from light-only Modern Teal v2
+## App-foundation contents
 
-1. Re-add `@rcm/rcm-theme`, then re-add every installed `@rcm` component to
-   refresh its vendored source.
-2. Add `@rcm/theme-provider` and wrap the application root. Remove custom
-   theme hooks or `next-themes`; the shared provider owns persistence and live
-   system-preference updates.
-3. Keep the `ThemeToggle` supplied by `app-shell` and `auth-page`; do not create
-   an app-specific toggle.
-4. Replace gradients, translucent fills, backdrop blur, glow shapes, and glass
-   cards with the opaque light/dark page and card recipes.
-5. Provide both `Logo_RCM_Teal.png` and `Logo_RCM_White.png` in `src/assets/`.
-   Shared chrome chooses the correct asset for the resolved theme.
+`@rcm/app-foundation` is the one-item baseline for a new app. It installs:
 
-## Local development
+- Modern Teal web theme and light/dark/system behavior
+- standard app shell and sign-in page
+- core cards and form fields
+- modal, data table, and toast foundations
+- a machine-readable RCM web-foundation marker
 
-```bash
-npm install
-npm run dev:ui          # run the showcase locally (no Rayfin backend needed)
-npm run build:registry # build per-item registry files into public/r/
-npm run build:pages    # build the registry + static showcase (what CI deploys)
+The consuming app must provide the standard logo files at:
+
+```text
+public/brand/Logo_RCM_Teal.png
+public/brand/Logo_RCM_White.png
 ```
 
-The showcase entry (`src/main.tsx` → `src/showcase/`) has no auth/backend
-dependency so it can be served statically. The Fabric-auth scaffolding
-(`src/App.tsx`, `src/components/AuthPage.tsx`, `src/services/`) remains for the
-starter-template role; point `main.tsx` at `<App />` to use it.
+`Rayfin_Template` already includes them. Other consumers should copy the
+canonical assets from `Design-System`.
 
-## Theme
+## Individual registry items
 
-`src/main.css` is rayfin-ui's implementation of the canonical Design System: it
-keeps the canonical light tokens unchanged and adds an opaque dark semantic
-layer for web applications. Brand hues remain recognizable; foregrounds,
-surfaces, interaction washes, sentiment colors, and data colors are adapted for
-dark-canvas contrast. Deep teal remains the table-header band in both modes.
-The theme maps onto shadcn semantic tokens and Tailwind utilities
-(`bg-primary` and `bg-teal` both work). The `rcm-theme` registry item mirrors
-both token sets for distribution.
+| Category | Items |
+| --- | --- |
+| Foundation | `app-foundation`, `utils`, `rcm-theme`, `theme-provider`, `theme-toggle` |
+| Application chrome | `app-shell`, `auth-page` |
+| Primitives | `badge`, `button`, `card`, `checkbox`, `dialog`, `dropdown-menu`, `field`, `input`, `label`, `popover`, `select`, `separator`, `sheet`, `sonner`, `table`, `tabs`, `textarea`, `tooltip` |
+| Composites | `modal`, `data-table` |
 
-Wrap every Rayfin app at its entry point. The default follows the operating
-system, persists an explicit user choice under `rcm-ui-theme`, and responds when
-the system preference changes:
+Use the `@rcm` version when it exists. Add an upstream shadcn component only
+when the registry does not provide it, then decide whether the resulting
+generic pattern belongs here.
 
-```tsx
-import { ThemeProvider } from '@/components/rcm/theme-provider';
+## Working in this repository
 
-createRoot(document.getElementById('root')!).render(
-  <ThemeProvider>
-    <App />
-  </ThemeProvider>
-);
+```powershell
+npm ci
+npm run dev
+npm run check:foundation
+npm run lint
+npm test
+npm run build:pages
 ```
 
-Use semantic utilities (`bg-background`, `bg-card`, `text-fg-1`,
-`text-accent-foreground`) in application code. Brand utilities such as
-`bg-teal` represent fixed identity colors and should not be used as general
-foreground or surface roles. `app-shell`, `auth-page`, and `sonner` expect to be
-rendered under the shared provider.
+`npm run build:pages` creates the per-item registry under `public/r/` and the
+static showcase under `dist/`. GitHub Actions validates both and deploys the
+showcase/registry to Pages.
+
+Run the complete local gate with:
+
+```powershell
+npm run validate
+```
+
+## Design defaults
+
+The universal RCM palette and logo rules come from `Design-System`. This web
+layer additionally owns:
+
+- semantic rather than raw-color component APIs;
+- Segoe UI plus accessible system fallbacks;
+- responsive layout and keyboard behavior;
+- focus, reduced motion, and contrast;
+- an opaque dark mode appropriate for web apps;
+- the exact component composition exposed by this registry.
+
+For maintenance and release order, read [Maintenance](docs/MAINTENANCE.md).

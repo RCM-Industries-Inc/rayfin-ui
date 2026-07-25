@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   // Relative base so the built showcase works under a GitHub Pages subpath
-  // (e.g. /rayfin-ui/) as well as at a domain root or Fabric static hosting.
+  // (e.g. /rayfin-ui/) as well as at a domain root.
   base: './',
   plugins: [react(), tailwindcss()],
   resolve: {

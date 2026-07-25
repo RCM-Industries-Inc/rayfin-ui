@@ -49,4 +49,6 @@ function Badge({
   )
 }
 
+// Variant exports are intentional registry API.
+// eslint-disable-next-line react-refresh/only-export-components
 export { Badge, badgeVariants }

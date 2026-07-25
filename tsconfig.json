@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable", "ESNext.Decorators"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -20,6 +20,5 @@
     "skipLibCheck": true,
     "types": ["vite/client"]
   },
-  "include": ["src"],
-  "references": [{ "path": "./rayfin" }]
+  "include": ["src"]
 }

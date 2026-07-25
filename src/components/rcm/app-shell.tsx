@@ -1,11 +1,8 @@
 import { LogOut } from 'lucide-react';
 import { type ReactNode } from 'react';
 
-import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/rcm/theme-toggle';
-import { useAuth } from '@/hooks/AuthContext';
-import logoTeal from '@/assets/Logo_RCM_Teal.png';
-import logoWhite from '@/assets/Logo_RCM_White.png';
+import { Button } from '@/components/ui/button';
 
 interface AppShellProps {
   /** App name shown in the header, e.g. "Production Planning". */
@@ -16,6 +13,15 @@ interface AppShellProps {
   context?: ReactNode;
   /** App-specific actions rendered before the user / sign-out cluster. */
   actions?: ReactNode;
+  /** Authenticated user's display name. Omit when no user is signed in. */
+  userName?: string;
+  /** Sign-out action supplied by the consuming app's auth layer. */
+  onSignOut?: () => void | Promise<void>;
+  /**
+   * Public directory containing the standard logo files. Apps created from
+   * Rayfin_Template already provide `/brand/Logo_RCM_{Teal,White}.png`.
+   */
+  brandAssetBase?: string;
   /**
    * Tailwind `max-w-*` for the shared header+content container. The width is the
    * ONE thing apps may vary; the default `max-w-[1600px]` fills large screens and
@@ -47,19 +53,30 @@ export function AppShell({
   subtitle,
   context,
   actions,
+  userName,
+  onSignOut,
+  brandAssetBase = '/brand',
   maxWidth = 'max-w-[1600px]',
   children,
 }: AppShellProps) {
-  const { user, signOut } = useAuth();
   const container = `mx-auto w-full ${maxWidth} px-6`;
+  const assetBase = brandAssetBase.replace(/\/$/, '');
 
   return (
     <div className="min-h-screen bg-background text-fg-2">
       <header className="sticky top-0 z-30 border-b border-border bg-card">
         <div className={`flex h-16 items-center gap-3 ${container}`}>
           <div className="h-9 shrink-0">
-            <img src={logoTeal} alt="RCM Industries" className="h-9 w-auto dark:hidden" />
-            <img src={logoWhite} alt="RCM Industries" className="hidden h-9 w-auto dark:block" />
+            <img
+              src={`${assetBase}/Logo_RCM_Teal.png`}
+              alt="RCM Industries"
+              className="h-9 w-auto dark:hidden"
+            />
+            <img
+              src={`${assetBase}/Logo_RCM_White.png`}
+              alt="RCM Industries"
+              className="hidden h-9 w-auto dark:block"
+            />
           </div>
           <div className="h-8 w-px shrink-0 bg-border" />
           <div className="flex min-w-0 flex-col leading-tight">
@@ -71,15 +88,21 @@ export function AppShell({
           <div className="ml-auto flex shrink-0 items-center gap-2">
             {actions}
             <ThemeToggle />
-            {user && (
+            {userName && (
               <span className="hidden max-w-[180px] truncate text-[13px] text-fg-2 md:inline">
-                {user.name}
+                {userName}
               </span>
             )}
-            <Button variant="outline" onClick={() => void signOut()} aria-label="Sign out">
-              <LogOut className="size-4" strokeWidth={1.5} />
-              <span className="hidden sm:inline">Sign out</span>
-            </Button>
+            {onSignOut && (
+              <Button
+                variant="outline"
+                onClick={() => void onSignOut()}
+                aria-label="Sign out"
+              >
+                <LogOut className="size-4" strokeWidth={1.5} />
+                <span className="hidden sm:inline">Sign out</span>
+              </Button>
+            )}
           </div>
         </div>
       </header>

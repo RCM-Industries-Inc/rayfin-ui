@@ -1,10 +1,10 @@
 {
   "mcpServers": {
-    "rayfin": {
+    "shadcn": {
       "args": [
         "-y",
-        "@microsoft/rayfin-mcp",
-        "start"
+        "shadcn@latest",
+        "mcp"
       ],
       "command": "npx",
       "type": "stdio"
