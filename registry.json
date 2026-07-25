@@ -7,7 +7,7 @@
       "name": "rcm-theme",
       "type": "registry:theme",
       "title": "RCM Modern Teal v2 theme",
-      "description": "The canonical light Modern Teal theme plus rayfin-ui's opaque, contrast-safe web dark theme. Includes palette, state, elevation, radius, motion, sentiment, severity, and division tokens.",
+      "description": "The canonical RCM web theme: universal brand colors and data meaning from Design-System, plus rayfin-ui's web-specific semantic tokens, typography, interaction, accessibility, and opaque dark mode.",
       "cssVars": {
         "theme": {
           "font-sans": "'Segoe UI', system-ui, -apple-system, 'Segoe UI Variable', 'Source Sans 3', Roboto, Helvetica, Arial, sans-serif",
@@ -288,7 +288,7 @@
       "type": "registry:component",
       "title": "RCM Theme Provider",
       "description": "Persistent light, dark, and system preference for Vite-based Rayfin apps, including live operating-system theme updates.",
-      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/rcm-theme"],
+      "registryDependencies": ["@rcm/rcm-theme"],
       "files": [
         {
           "path": "src/components/rcm/theme-provider.tsx",
@@ -304,15 +304,29 @@
       "description": "Compact light, dark, and system selector for the standard RCM app shell.",
       "dependencies": ["lucide-react"],
       "registryDependencies": [
-        "RCM-Industries-Inc/rayfin-ui/theme-provider",
-        "RCM-Industries-Inc/rayfin-ui/button",
-        "RCM-Industries-Inc/rayfin-ui/dropdown-menu"
+        "@rcm/theme-provider",
+        "@rcm/button",
+        "@rcm/dropdown-menu"
       ],
       "files": [
         {
           "path": "src/components/rcm/theme-toggle.tsx",
           "type": "registry:component",
           "target": "components/rcm/theme-toggle.tsx"
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "RCM Class Utilities",
+      "description": "Shared class-name composition helper required by RCM shadcn components.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
         }
       ]
     },
@@ -400,7 +414,7 @@
       "type": "registry:ui",
       "title": "RCM Dialog",
       "dependencies": ["lucide-react", "radix-ui"],
-      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/button"],
+      "registryDependencies": ["@rcm/button"],
       "files": [{ "path": "src/components/ui/dialog.tsx", "type": "registry:ui" }]
     },
     {
@@ -422,7 +436,7 @@
       "type": "registry:ui",
       "title": "RCM Sheet",
       "dependencies": ["lucide-react", "radix-ui"],
-      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/button"],
+      "registryDependencies": ["@rcm/button"],
       "files": [{ "path": "src/components/ui/sheet.tsx", "type": "registry:ui" }]
     },
     {
@@ -437,7 +451,7 @@
       "type": "registry:ui",
       "title": "RCM Toasts",
       "dependencies": ["lucide-react", "sonner"],
-      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/theme-provider"],
+      "registryDependencies": ["@rcm/theme-provider"],
       "files": [{ "path": "src/components/ui/sonner.tsx", "type": "registry:ui" }]
     },
     {
@@ -446,8 +460,8 @@
       "title": "RCM Field",
       "dependencies": ["class-variance-authority"],
       "registryDependencies": [
-        "RCM-Industries-Inc/rayfin-ui/label",
-        "RCM-Industries-Inc/rayfin-ui/separator"
+        "@rcm/label",
+        "@rcm/separator"
       ],
       "files": [{ "path": "src/components/ui/field.tsx", "type": "registry:ui" }]
     },
@@ -456,7 +470,7 @@
       "type": "registry:component",
       "title": "RCM Modal",
       "description": "Dialog-based modal with an ergonomic title/subtitle/footer API and canonical RCM elevation and motion.",
-      "registryDependencies": ["RCM-Industries-Inc/rayfin-ui/dialog"],
+      "registryDependencies": ["@rcm/dialog"],
       "files": [
         {
           "path": "src/components/rcm/modal.tsx",
@@ -472,8 +486,8 @@
       "description": "Client-sorted RCM matrix over TanStack Table with a container-bounded fixed layout, optional column widths, canonical header, row states, alignment, and tabular figures.",
       "dependencies": ["@tanstack/react-table", "lucide-react"],
       "registryDependencies": [
-        "RCM-Industries-Inc/rayfin-ui/table",
-        "RCM-Industries-Inc/rayfin-ui/button"
+        "@rcm/table",
+        "@rcm/button"
       ],
       "files": [
         {
@@ -490,8 +504,8 @@
       "description": "The standard opaque RCM app top navigation and page canvas: theme-aware logo, title/subtitle, optional context and actions, theme selector, user, and sign out.",
       "dependencies": ["lucide-react"],
       "registryDependencies": [
-        "RCM-Industries-Inc/rayfin-ui/button",
-        "RCM-Industries-Inc/rayfin-ui/theme-toggle"
+        "@rcm/button",
+        "@rcm/theme-toggle"
       ],
       "files": [
         {
@@ -507,14 +521,42 @@
       "title": "RCM Auth Page",
       "description": "The standard RCM sign-in page: opaque themed page and elevated card, theme-aware logo, app title/subtitle, theme selector, and Microsoft sign-in button.",
       "registryDependencies": [
-        "RCM-Industries-Inc/rayfin-ui/button",
-        "RCM-Industries-Inc/rayfin-ui/theme-toggle"
+        "@rcm/button",
+        "@rcm/theme-toggle"
       ],
       "files": [
         {
           "path": "src/components/rcm/auth-page.tsx",
           "type": "registry:component",
           "target": "components/rcm/auth-page.tsx"
+        }
+      ]
+    },
+    {
+      "name": "app-foundation",
+      "type": "registry:lib",
+      "title": "RCM Rayfin App Foundation",
+      "description": "The coordinated web baseline for new RCM Rayfin apps: Modern Teal web theme, theme behavior, standard shell and sign-in, core form and feedback primitives, common composites, and a machine-readable foundation marker.",
+      "registryDependencies": [
+        "@rcm/utils",
+        "@rcm/rcm-theme",
+        "@rcm/theme-provider",
+        "@rcm/app-shell",
+        "@rcm/auth-page",
+        "@rcm/card",
+        "@rcm/field",
+        "@rcm/input",
+        "@rcm/select",
+        "@rcm/textarea",
+        "@rcm/modal",
+        "@rcm/data-table",
+        "@rcm/sonner"
+      ],
+      "files": [
+        {
+          "path": "src/lib/rcm-foundation.ts",
+          "type": "registry:lib",
+          "target": "lib/rcm-foundation.ts"
         }
       ]
     }

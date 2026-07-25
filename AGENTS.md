@@ -1,66 +1,85 @@
-# AGENTS.md
+# Repository instructions
 
-This project ships Rayfin agent context.
-Load `.agents/skills/rayfin/SKILL.md` and the `rayfin` MCP server in `.mcp.json` before writing Rayfin code.
+This repository is the canonical RCM **web UI registry and showcase**. It is not
+a Rayfin app starter, backend, or Fabric deployment project.
 
-Rayfin docs are version-locked to the packages installed in this project.
-Prefer the MCP tools `search_docs`, `get_doc`, `list_docs`, and `discover_packages` for examples, API details, and troubleshooting.
-If MCP is unavailable, run `rayfin docs ...` from the project root so the CLI reads this project's `node_modules`.
-If `rayfin` is not on `PATH`, use `npx -y @microsoft/rayfin-cli docs ...` from the project root.
+## Start every task
 
-Use `discover_packages` or `rayfin docs discover <topic>` when installed docs do not cover the task.
+1. Read [`docs/FOUNDATION.md`](docs/FOUNDATION.md).
+2. For brand changes, read the sibling
+   `../Design-System/APPLICABILITY.md` and the relevant universal guidance. If
+   the sibling checkout is unavailable, use the
+   [Design-System repository](https://github.com/RCM-Industries-Inc/Design-System).
+3. Load the installed `shadcn` skill and use the shadcn MCP/CLI for component
+   discovery, registry inspection, and updates.
+4. Run `npx shadcn@latest info --json` before changing shadcn configuration.
 
-## RCM UI standards (required for every app)
+## Ownership
 
-These keep every RCM app looking like one product. Do not hand-roll chrome that
-already exists here, and do not restyle shared components per app.
+- `Design-System` owns cross-medium brand foundations: colors, division
+  assignments, logo rules, and shared identity.
+- This repository owns the web interpretation: semantic tokens, web
+  typography, accessibility, responsive behavior, interaction, dark mode, and
+  reusable React APIs.
+- `Rayfin_Template` owns application scaffolding: Rayfin auth, routes, schema,
+  workspace defaults, app configuration, and starter documentation.
 
-Before changing a visual artifact, read the RCM Design System's canonical
-`DESIGN.md` v2 specification. In the standard sibling checkout it is
-`../Design-System/DESIGN.md`; the repository source is
-https://github.com/RCM-Industries-Inc/Design-System/blob/main/DESIGN.md.
+Do not copy Power BI, Word, Excel, or presentation recipes into web code merely
+because they appear in `Design-System`. Preserve universal brand intent, then
+make web-appropriate decisions here.
 
-- **App shell / top navigation — always the shared component.** Every app's
-  header MUST be `app-shell`:
-  `npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/app-shell`. Pass only
-  `title` / `subtitle` / `context` / `actions`; never rebuild the logo,
-  separator order, height, theme selector, or sign-out. It depends on the
-  shared `button` and `theme-toggle`, and expects the scaffold's `AuthContext`
-  plus the teal and white RCM logos in `src/assets/`.
-- **Sign-in page — always the shared component.** Every app's login MUST be
-  `auth-page` (`npx shadcn@latest add RCM-Industries-Inc/rayfin-ui/auth-page`).
-  Pass only `title` / `subtitle` / `footer`; the card, the "Sign in with
-  Microsoft" Button, and the sizing are fixed.
-- **Theme first.** Add `rcm-theme` before anything else
-  (`… add …/rcm-theme`) so all shadcn components render in RCM Modern Teal
-  v2. Rayfin apps must support the canonical light theme and rayfin-ui's opaque
-  web dark theme. Add `theme-provider`, wrap the application root, and keep the
-  shared `theme-toggle` in `app-shell` and `auth-page`. The retired Teal Glass
-  treatment stays retired: no gradients, translucent surfaces, backdrop blur,
-  glow effects, or decorative glass. Build on the tokens; don't invent colors,
-  shadows, radii, or motion values.
-- **Primitives & composites.** Use the shared `button`, `modal`, `data-table`,
-  etc. from this registry, not same-named upstream shadcn items. Keep their
-  sizes/variants; don't fork them.
-- **Typography & data.** Use Segoe UI/system fallbacks, weights 400/600 only,
-  and tabular lining figures for every value that can change.
-- **Canonical spec.** If this repository disagrees with RCM Design System
-  `DESIGN.md`, update rayfin-ui to match it.
+## Component rules
 
-### Adding or changing a shared component
+- Use shadcn `radix-nova`, Tailwind 4, semantic tokens, and Lucide icons.
+- Use existing `src/components/ui` primitives before composing a new one.
+- Forms use `FieldGroup` and `Field`; do not hand-build label/error spacing.
+- Keep keyboard behavior, focus, reduced motion, contrast, and responsive
+  behavior accessible.
+- Shared components must not import an application's auth context, router,
+  entity schema, or business services. Receive app state and actions through
+  props.
+- Standard chrome is `app-shell`; standard sign-in presentation is
+  `auth-page`.
+- Components use the public brand-asset contract documented in `README.md`.
+- Generic patterns belong here. Domain-specific pages and workflows remain in
+  their application.
 
-This repo is the home for **reusable** RCM UI. When an app needs a component that
-isn't app-specific (chrome, a primitive, a pattern any app could reuse):
+## Registry rules
 
-1. Build it here under `src/components/rcm/` (or `ui/`), on-theme, shadcn tokens.
-2. Register it in `registry.json` (name, description, files, deps) so apps add it
-   with `npx shadcn add RCM-Industries-Inc/rayfin-ui/<name>`.
-3. Document the standard in the RCM Design System, and mandate it above if it's
-   chrome every app must share.
+- Register every distributed item in `registry.json`.
+- Internal dependencies use explicit `@rcm/<item>` addresses.
+- Keep the `@rcm` namespace in `components.json` so the shadcn MCP can browse
+  the registry.
+- Inspect CLI output and diffs before accepting upstream shadcn updates. Never
+  overwrite a modified component without explicit approval.
+- `@rcm/app-foundation` is the coordinated new-app baseline. Update its
+  dependency list when a component becomes mandatory for all new apps.
+- Source-copy distribution is intentional; this repository does not become a
+  runtime npm dependency of applications.
 
-App-specific UI (tied to one app's domain) stays in that app. Everything reusable
-belongs here — **default to promoting it.**
+## Required verification
 
-Evolve shared standards centrally. Extend reusable APIs when appropriate; when
-the canonical Design System retires a pattern, migrate it here instead of
-preserving a visual fork.
+Run from this repository:
+
+```powershell
+npm run check:foundation
+npm run lint
+npm test
+npm run build:pages
+```
+
+`npm run validate` runs the complete gate. Do not edit generated `public/r/` or
+`dist/`; regenerate them.
+
+## Coordinated changes
+
+For a universal brand change:
+
+1. Change and approve it in `Design-System`.
+2. Translate only the relevant parts into the web theme/components here.
+3. Validate and publish this registry.
+4. Refresh `Rayfin_Template` with a reviewed shadcn dry run and diff.
+5. Leave migrations of existing applications for a separately scoped effort.
+
+Read [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md) before changing a public
+component API or foundation release marker.

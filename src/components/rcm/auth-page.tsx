@@ -1,10 +1,7 @@
 import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/rcm/theme-toggle';
-import { useAuth } from '@/hooks/AuthContext';
-import logoTeal from '@/assets/Logo_RCM_Teal.png';
-import logoWhite from '@/assets/Logo_RCM_White.png';
+import { Button } from '@/components/ui/button';
 
 /** Microsoft four-square mark for the sign-in button. */
 const msLogo = (
@@ -23,6 +20,12 @@ interface AuthPageProps {
   subtitle?: string;
   /** Optional caption under the card. */
   footer?: string;
+  /** Sign-in action supplied by the consuming app's auth layer. */
+  onSignIn: () => Promise<unknown>;
+  /** Controls Microsoft/Fabric versus local-development copy. */
+  fabricAuthEnabled?: boolean;
+  /** Public directory containing the standard RCM logo files. */
+  brandAssetBase?: string;
 }
 
 /**
@@ -36,16 +39,19 @@ export function AuthPage({
   title,
   subtitle = 'Sign in with your RCM account to continue.',
   footer,
+  onSignIn,
+  fabricAuthEnabled = true,
+  brandAssetBase = '/brand',
 }: AuthPageProps) {
-  const { signIn, fabricAuthEnabled } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const assetBase = brandAssetBase.replace(/\/$/, '');
 
   const handleSignIn = async () => {
     setError(null);
     setIsLoading(true);
     try {
-      await signIn();
+      await onSignIn();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to sign in.');
     } finally {
@@ -57,7 +63,9 @@ export function AuthPage({
     ? fabricAuthEnabled
       ? 'Opening Fabric…'
       : 'Signing in…'
-    : 'Sign in with Microsoft';
+    : fabricAuthEnabled
+      ? 'Sign in with Microsoft'
+      : 'Continue in local development';
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
@@ -69,8 +77,16 @@ export function AuthPage({
           <div className="rounded-lg border border-border bg-card p-8 shadow-[var(--shadow-card)]">
             <div className="mb-8 flex flex-col items-center text-center">
               <div className="mb-5 h-10">
-                <img src={logoTeal} alt="RCM Industries" className="h-10 w-auto dark:hidden" />
-                <img src={logoWhite} alt="RCM Industries" className="hidden h-10 w-auto dark:block" />
+                <img
+                  src={`${assetBase}/Logo_RCM_Teal.png`}
+                  alt="RCM Industries"
+                  className="h-10 w-auto dark:hidden"
+                />
+                <img
+                  src={`${assetBase}/Logo_RCM_White.png`}
+                  alt="RCM Industries"
+                  className="hidden h-10 w-auto dark:block"
+                />
               </div>
               <h1 className="text-xl font-semibold tracking-tight text-fg-1">{title}</h1>
               {subtitle && <p className="mt-2 text-[13px] text-fg-2">{subtitle}</p>}
@@ -83,11 +99,18 @@ export function AuthPage({
               className="w-full"
               size="lg"
             >
-              {msLogo}
+              {fabricAuthEnabled && msLogo}
               {buttonLabel}
             </Button>
 
-            {error && <p className="mt-3 text-center text-[13px] text-destructive">{error}</p>}
+            {error && (
+              <p
+                className="mt-3 text-center text-[13px] text-destructive"
+                role="alert"
+              >
+                {error}
+              </p>
+            )}
           </div>
           {footer && <p className="mt-4 text-center text-xs text-fg-3">{footer}</p>}
         </div>
