@@ -1,0 +1,8 @@
+# The UI registry only needs its project-versioned shadcn server.
+
+[mcp_servers.shadcn]
+command = "npx.cmd"
+args = ["--no-install", "shadcn", "mcp"]
+startup_timeout_sec = 120
+tool_timeout_sec = 120
+default_tools_approval_mode = "writes"
