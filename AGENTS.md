@@ -7,17 +7,17 @@ a Rayfin app starter, backend, or Fabric deployment project.
 
 1. Read [`docs/FOUNDATION.md`](docs/FOUNDATION.md).
 2. For brand changes, read the sibling
-   `../Design-System/APPLICABILITY.md` and the relevant universal guidance. If
-   the sibling checkout is unavailable, use the
-   [Design-System repository](https://github.com/RCM-Industries-Inc/Design-System).
+   `../rcm-toolkit/.agents/skills/rcm-industries-design/APPLICABILITY.md` and the
+   relevant universal guidance. If the sibling checkout is unavailable, use the
+   [`rcm-industries-design` skill](https://github.com/RCM-Industries-Inc/rcm-toolkit/tree/main/.agents/skills/rcm-industries-design).
 3. Load the installed `shadcn` skill and use the shadcn MCP/CLI for component
    discovery, registry inspection, and updates.
 4. Run `npx shadcn@latest info --json` before changing shadcn configuration.
 
 ## Ownership
 
-- `Design-System` owns cross-medium brand foundations: colors, division
-  assignments, logo rules, and shared identity.
+- The `rcm-industries-design` skill in `rcm-toolkit` owns cross-medium brand
+  foundations: colors, division assignments, logo rules, and shared identity.
 - This repository owns the web interpretation: semantic tokens, web
   typography, accessibility, responsive behavior, interaction, dark mode, and
   reusable React APIs.
@@ -25,7 +25,7 @@ a Rayfin app starter, backend, or Fabric deployment project.
   workspace defaults, app configuration, and starter documentation.
 
 Do not copy Power BI, Word, Excel, or presentation recipes into web code merely
-because they appear in `Design-System`. Preserve universal brand intent, then
+because they appear in the design skill. Preserve universal brand intent, then
 make web-appropriate decisions here.
 
 ## Component rules
@@ -75,7 +75,7 @@ npm run build:pages
 
 For a universal brand change:
 
-1. Change and approve it in `Design-System`.
+1. Change and approve it in `rcm-toolkit`'s `rcm-industries-design` skill.
 2. Translate only the relevant parts into the web theme/components here.
 3. Validate and publish this registry.
 4. Refresh `Rayfin_Template` with a reviewed shadcn dry run and diff.

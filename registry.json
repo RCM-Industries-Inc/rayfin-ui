@@ -7,7 +7,7 @@
       "name": "rcm-theme",
       "type": "registry:theme",
       "title": "RCM Modern Teal v2 theme",
-      "description": "The canonical RCM web theme: universal brand colors and data meaning from Design-System, plus rayfin-ui's web-specific semantic tokens, typography, interaction, accessibility, and opaque dark mode.",
+      "description": "The canonical RCM web theme: universal brand colors and data meaning from rcm-toolkit's rcm-industries-design skill, plus rayfin-ui's web-specific semantic tokens, typography, interaction, accessibility, and opaque dark mode.",
       "cssVars": {
         "theme": {
           "font-sans": "'Segoe UI', system-ui, -apple-system, 'Segoe UI Variable', 'Source Sans 3', Roboto, Helvetica, Arial, sans-serif",

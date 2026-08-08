@@ -20,11 +20,11 @@ Fabric deployment configuration. Start applications from
 
 | Repository | Authority |
 | --- | --- |
-| [`Design-System`](https://github.com/RCM-Industries-Inc/Design-System) | Cross-medium RCM brand foundation: especially colors, division assignments, logo rules, and shared identity. |
+| [`rcm-toolkit` design skill](https://github.com/RCM-Industries-Inc/rcm-toolkit/tree/main/.agents/skills/rcm-industries-design) | Cross-medium RCM brand foundation: especially colors, division assignments, logo rules, and shared identity. |
 | **`rayfin-ui`** | Web-specific interpretation: semantic tokens, typography, accessibility, interaction, dark mode, and component APIs. |
 | [`Rayfin_Template`](https://github.com/RCM-Industries-Inc/Rayfin_Template) | Golden-path Rayfin application with auth, routing, app configuration, validation, and the web foundation already installed. |
 
-Report, Office, and presentation recipes from `Design-System` are not
+Report, Office, and presentation recipes from the design skill are not
 automatically web rules. Web code preserves the universal brand foundation and
 then follows this repository.
 
@@ -100,7 +100,7 @@ public/brand/Logo_RCM_White.png
 ```
 
 `Rayfin_Template` already includes them. Other consumers should copy the
-canonical assets from `Design-System`.
+canonical assets from `rcm-toolkit/.agents/skills/rcm-industries-design/assets/`.
 
 ## Individual registry items
 
@@ -138,7 +138,7 @@ npm run validate
 
 ## Design defaults
 
-The universal RCM palette and logo rules come from `Design-System`. This web
+The universal RCM palette and logo rules come from `rcm-industries-design`. This web
 layer additionally owns:
 
 - semantic rather than raw-color component APIs;

@@ -15,7 +15,7 @@ App-specific behavior stays in the application.
 
 ## Universal brand change
 
-1. Approve the universal change in `Design-System`.
+1. Approve the universal change in `rcm-toolkit`'s `rcm-industries-design` skill.
 2. Identify what actually transfers to the web.
 3. Update `rcm-theme`, component behavior, assets, tests, and showcase as
    appropriate.
