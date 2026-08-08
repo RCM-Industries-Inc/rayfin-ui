@@ -7,10 +7,12 @@
  */
 export const RCM_WEB_FOUNDATION = {
   contractVersion: 1,
-  release: '1.0.0',
+  release: '1.0.1',
   style: 'radix-nova',
   brandFoundation: {
-    repository: 'RCM-Industries-Inc/Design-System',
+    repository: 'RCM-Industries-Inc/rcm-toolkit',
+    path: '.agents/skills/rcm-industries-design',
+    skill: 'rcm-industries-design',
     baseline: 'Modern Teal v2',
   },
   webRegistry: 'RCM-Industries-Inc/rayfin-ui',

@@ -3,7 +3,7 @@
 The RCM foundation has three deliberately separate layers.
 
 ```text
-Design-System
+rcm-toolkit / rcm-industries-design
   cross-medium brand identity and scoped artifact guidance
         |
         | translate universal foundations for the web
@@ -21,9 +21,9 @@ Rayfin_Template
 individual Rayfin applications
 ```
 
-## Design-System
+## rcm-toolkit design skill
 
-`Design-System` supports Power BI reports, Word documents, Excel workbooks,
+The `rcm-industries-design` skill supports Power BI reports, Word documents, Excel workbooks,
 PowerPoint presentations, web work, and other branded artifacts. Its universal
 authority is the RCM identity: core colors, fixed division assignments, logo
 use, and shared visual/voice principles.
@@ -60,7 +60,7 @@ owns:
 - validation and agent instructions.
 
 The template vendors component source because that is how shadcn works. It does
-not vendor the complete `Design-System`, and it does not reconstruct shared
+not vendor the complete design skill, and it does not reconstruct shared
 components.
 
 ## Individual applications
