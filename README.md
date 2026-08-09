@@ -102,6 +102,10 @@ public/brand/Logo_RCM_White.png
 `Rayfin_Template` already includes them. Other consumers should copy the
 canonical assets from `rcm-toolkit/.agents/skills/rcm-industries-design/assets/`.
 
+The shared `app-shell` keeps context, navigation, theme, and sign-out controls
+usable on narrow screens by compacting its gutters and secondary brand text;
+the complete logo and application title return at the `sm` breakpoint.
+
 ## Individual registry items
 
 | Category | Items |
