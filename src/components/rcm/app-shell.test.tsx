@@ -50,4 +50,30 @@ describe('AppShell', () => {
       '/custom-brand/Logo_RCM_White.png'
     );
   });
+
+  it('compacts shared chrome without overflowing narrow viewports', () => {
+    render(
+      <ThemeProvider defaultTheme="light">
+        <AppShell
+          title="Production Planning"
+          context={<button type="button">Division</button>}
+          actions={<button type="button">Page navigation</button>}
+          onSignOut={() => undefined}
+        >
+          Page content
+        </AppShell>
+      </ThemeProvider>
+    );
+
+    const header = screen.getByRole('banner');
+    expect(header.firstElementChild).toHaveClass('px-3', 'sm:px-6');
+    expect(screen.getAllByAltText('RCM Industries')[0].parentElement).toHaveClass(
+      'hidden',
+      'sm:block'
+    );
+    expect(screen.getByText('Production Planning').parentElement).toHaveClass(
+      'hidden',
+      'sm:flex'
+    );
+  });
 });

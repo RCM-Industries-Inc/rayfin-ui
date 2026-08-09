@@ -59,14 +59,14 @@ export function AppShell({
   maxWidth = 'max-w-[1600px]',
   children,
 }: AppShellProps) {
-  const container = `mx-auto w-full ${maxWidth} px-6`;
+  const container = `mx-auto w-full ${maxWidth} px-3 sm:px-6`;
   const assetBase = brandAssetBase.replace(/\/$/, '');
 
   return (
     <div className="min-h-screen bg-background text-fg-2">
       <header className="sticky top-0 z-30 border-b border-border bg-card">
-        <div className={`flex h-16 items-center gap-3 ${container}`}>
-          <div className="h-9 shrink-0">
+        <div className={`flex h-16 items-center gap-2 sm:gap-3 ${container}`}>
+          <div className="hidden h-9 shrink-0 sm:block">
             <img
               src={`${assetBase}/Logo_RCM_Teal.png`}
               alt="RCM Industries"
@@ -78,14 +78,14 @@ export function AppShell({
               className="hidden h-9 w-auto dark:block"
             />
           </div>
-          <div className="h-8 w-px shrink-0 bg-border" />
-          <div className="flex min-w-0 flex-col leading-tight">
+          <div className="hidden h-8 w-px shrink-0 bg-border sm:block" />
+          <div className="hidden min-w-0 flex-col leading-tight sm:flex">
             <span className="truncate text-xl font-semibold tracking-tight text-fg-1">{title}</span>
             {subtitle && <span className="truncate text-[13px] text-fg-2">{subtitle}</span>}
           </div>
-          {context && <div className="ml-2 flex shrink-0 items-center">{context}</div>}
+          {context && <div className="flex shrink-0 items-center sm:ml-2">{context}</div>}
 
-          <div className="ml-auto flex shrink-0 items-center gap-2">
+          <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
             {actions}
             <ThemeToggle />
             {userName && (
