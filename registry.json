@@ -469,13 +469,28 @@
       "name": "modal",
       "type": "registry:component",
       "title": "RCM Modal",
-      "description": "Dialog-based modal with an ergonomic title/subtitle/footer API and canonical RCM elevation and motion.",
+      "description": "Viewport-safe dialog modal with fixed title/actions, a scrollable body, and canonical RCM elevation and motion.",
       "registryDependencies": ["@rcm/dialog"],
       "files": [
         {
           "path": "src/components/rcm/modal.tsx",
           "type": "registry:component",
           "target": "components/rcm/modal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:component",
+      "title": "RCM Combobox",
+      "description": "Accessible searchable select for fixed reference data, with type-ahead filtering, exact-match entry, keyboard selection, and canonical RCM dropdown states.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["@rcm/input"],
+      "files": [
+        {
+          "path": "src/components/rcm/combobox.tsx",
+          "type": "registry:component",
+          "target": "components/rcm/combobox.tsx"
         }
       ]
     },

@@ -47,12 +47,22 @@ export function Modal({
         if (!open) onClose();
       }}
     >
-      <DialogContent className={cn('sm:max-w-lg', className)}>
-        <DialogHeader>
+      <DialogContent
+        className={cn(
+          'max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden sm:max-w-lg',
+          className
+        )}
+      >
+        <DialogHeader className="min-w-0 pr-8">
           <DialogTitle>{title}</DialogTitle>
           {subtitle && <DialogDescription>{subtitle}</DialogDescription>}
         </DialogHeader>
-        <div className="py-1">{children}</div>
+        <div
+          data-slot="modal-body"
+          className="min-h-0 overflow-y-auto overscroll-contain py-1 pr-1"
+        >
+          {children}
+        </div>
         {footer && <DialogFooter>{footer}</DialogFooter>}
       </DialogContent>
     </Dialog>

@@ -113,7 +113,7 @@ the complete logo and application title return at the `sm` breakpoint.
 | Foundation | `app-foundation`, `utils`, `rcm-theme`, `theme-provider`, `theme-toggle` |
 | Application chrome | `app-shell`, `auth-page` |
 | Primitives | `badge`, `button`, `card`, `checkbox`, `dialog`, `dropdown-menu`, `field`, `input`, `label`, `popover`, `select`, `separator`, `sheet`, `sonner`, `table`, `tabs`, `textarea`, `tooltip` |
-| Composites | `modal`, `data-table` |
+| Composites | `modal`, `combobox`, `data-table` |
 
 Use the `@rcm` version when it exists. Add an upstream shadcn component only
 when the registry does not provide it, then decide whether the resulting

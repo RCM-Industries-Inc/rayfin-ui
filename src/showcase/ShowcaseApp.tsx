@@ -68,6 +68,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Modal } from '@/components/rcm/modal';
+import { Combobox } from '@/components/rcm/combobox';
 import { DataTable } from '@/components/rcm/data-table';
 import { ThemeToggle } from '@/components/rcm/theme-toggle';
 import { type ColumnDef } from '@tanstack/react-table';
@@ -169,6 +170,7 @@ const SEMANTIC_SWATCHES: { name: string; className: string; fg: string }[] = [
 
 export function ShowcaseApp() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [product, setProduct] = useState('');
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -281,6 +283,32 @@ export function ShowcaseApp() {
                     <SelectItem value="6061">6061 Aluminum</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="space-y-2 sm:col-span-2">
+                <Label htmlFor="product">Product</Label>
+                <Combobox
+                  id="product"
+                  options={[
+                    {
+                      value: 'P-1001',
+                      label: 'P-1001',
+                      description: 'Transmission housing',
+                    },
+                    {
+                      value: 'P-1002',
+                      label: 'P-1002',
+                      description: 'Mounting bracket',
+                    },
+                    {
+                      value: 'P-1003',
+                      label: 'P-1003',
+                      description: 'Drive cover',
+                    },
+                  ]}
+                  value={product}
+                  onValueChange={setProduct}
+                  placeholder="Search product number or description"
+                />
               </div>
               <div className="space-y-2 sm:col-span-2">
                 <Label htmlFor="notes">Notes</Label>
