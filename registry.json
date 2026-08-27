@@ -499,7 +499,7 @@
       "type": "registry:component",
       "title": "RCM DataTable",
       "description": "Client-sorted RCM matrix over TanStack Table with a container-bounded fixed layout, optional column widths, canonical header, row states, alignment, and tabular figures.",
-      "dependencies": ["@tanstack/react-table", "lucide-react"],
+      "dependencies": ["@tanstack/react-table@^8.21.3", "lucide-react"],
       "registryDependencies": [
         "@rcm/table",
         "@rcm/button"
