@@ -183,6 +183,10 @@
 
   /* Brand colors remain recognizable; text roles become lighter. */
   --rcm-hyperlink: #8fd9cf;
+  /* Deep teal is a light-mode ink. On the dark ramp it sits at 1.9-2.6:1
+     against the app surfaces, so it is lifted to the existing light-teal
+     brand value, which clears AA on all three. */
+  --rcm-deep-teal: #3fb6bc;
   --rcm-ink: #f1f7f8;
   --rcm-fg-1: #f1f7f8;
   --rcm-fg-2: #c7d6d8;
@@ -439,7 +443,7 @@
   }
 
   a {
-    color: var(--rcm-deep-teal);
+    color: var(--rcm-hyperlink);
     text-decoration: none;
     transition: color var(--dur-1) var(--ease-out);
   }
